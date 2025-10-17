@@ -1,0 +1,3396 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[    170487,       3387]
+NotebookOptionsPosition[    169813,       3367]
+NotebookOutlinePosition[    170296,       3385]
+CellTagsIndexPosition[    170253,       3382]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"::", "Package", "::"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Cellular", " ", "Automaton", " ", "Template", " ", "Notebook"}], 
+   "*)"}], 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"Main", " ", "Interface"}], "-", 
+    RowBox[{"This", " ", "displays", " ", "first"}]}], "*)"}], 
+  RowBox[{
+   RowBox[{"DynamicModule", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"selectedRule", "=", "30"}], ",", 
+       RowBox[{"generateNotebook", "=", "False"}], ",", 
+       RowBox[{"notebookGenerated", "=", "False"}]}], "}"}], ",", 
+     RowBox[{"Column", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<Cellular Automaton Notebook Generator\>\"", 
+          ",", "\"\<Title\>\""}], "]"}], ",", 
+        RowBox[{"(*", 
+         RowBox[{"Rule", " ", "Selection", " ", "Interface"}], "*)"}], 
+        RowBox[{"Row", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Style", "[", 
+            
+            RowBox[{"\"\<Select Rule Number (0-255): \>\"", 
+             ",", "\"\<Text\>\""}], "]"}], ",", 
+           RowBox[{"InputField", "[", 
+            RowBox[{
+             RowBox[{"Dynamic", "[", "selectedRule", "]"}], ",", "Number", ",", 
+             RowBox[{"FieldSize", "->", "5"}]}], "]"}], ",", 
+           RowBox[{"Button", "[", 
+            RowBox[{"\"\<Generate Custom Notebook\>\"", ",", 
+             RowBox[{
+              RowBox[{"generateNotebook", "=", "True"}], ";", 
+              RowBox[{"notebookGenerated", "=", "True"}]}], ",", 
+             RowBox[{"Background", "->", "LightBlue"}]}], "]"}]}], "}"}], 
+         "]"}], ",", 
+        RowBox[{"Spacer", "[", "10", "]"}], ",", 
+        RowBox[{"(*", 
+         RowBox[{"Rule", " ", "Preview"}], "*)"}], 
+        RowBox[{"Dynamic", "[", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"selectedRule", ">=", "0"}], "&&", 
+            RowBox[{"selectedRule", "<=", "255"}]}], ",", 
+           RowBox[{"Column", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Style", "[", 
+               RowBox[{
+                RowBox[{"\"\<Rule \>\"", "<>", 
+                 RowBox[{"ToString", "[", "selectedRule", "]"}], 
+                 "<>", "\"\< Preview:\>\""}], ",", "\"\<Subsubsection\>\""}], 
+               "]"}], ",", 
+              RowBox[{"Grid", "[", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   
+                   RowBox[{"\"\<111\>\"", ",", "\"\<110\>\"", 
+                    ",", "\"\<101\>\"", ",", "\"\<100\>\"", ",", "\"\<011\>\"",
+                     ",", "\"\<010\>\"", ",", "\"\<001\>\"", 
+                    ",", "\"\<000\>\""}], "}"}], ",", 
+                  RowBox[{"IntegerDigits", "[", 
+                   RowBox[{"selectedRule", ",", "2", ",", "8"}], "]"}]}], 
+                 "}"}], ",", 
+                RowBox[{"Frame", "->", "All"}], ",", 
+                RowBox[{"Background", "->", 
+                 RowBox[{"{", 
+                  RowBox[{"{", 
+                   RowBox[{"LightGray", ",", "White"}], "}"}], "}"}]}]}], 
+               "]"}], ",", 
+              RowBox[{"Spacer", "[", "5", "]"}], ",", 
+              RowBox[{"ArrayPlot", "[", 
+               RowBox[{
+                RowBox[{"CellularAutomaton", "[", 
+                 RowBox[{"selectedRule", ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", "1", "}"}], ",", "0"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"50", ",", "50"}], "}"}]}], "]"}], ",", 
+                RowBox[{"ColorRules", "->", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"0", "->", "White"}], ",", 
+                   RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                RowBox[{"Frame", "->", "False"}], ",", 
+                RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], "}"}], "]"}], ",", 
+           RowBox[{"Style", "[", 
+            
+            RowBox[{"\"\<Please enter a valid rule number (0-255)\>\"", 
+             ",", "\"\<Text\>\"", ",", "Red"}], "]"}]}], "]"}], "]"}], ",", 
+        RowBox[{"Spacer", "[", "10", "]"}], ",", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Generate", " ", "notebook", " ", "when", " ", "button", " ", "is", " ",
+           "pressed"}], "*)"}], 
+        RowBox[{"Dynamic", "[", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"generateNotebook", "&&", "notebookGenerated"}], ",", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"generateCANotebook", "[", "selectedRule", "]"}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"generateNotebook", "=", "False"}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Column", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"Style", "[", 
+                 RowBox[{
+                  
+                  RowBox[{"\"\<\[Checkmark] Custom notebook generated for \
+Rule \>\"", "<>", 
+                   RowBox[{"ToString", "[", "selectedRule", "]"}]}], 
+                  ",", "\"\<Text\>\"", ",", "Green"}], "]"}], ",", 
+                RowBox[{"Style", "[", 
+                 
+                 RowBox[{"\"\<Check your notebooks list for the new notebook.\
+\>\"", ",", "\"\<Text\>\""}], "]"}]}], "}"}], "]"}]}], ")"}], 
+           ",", "\"\<\>\""}], "]"}], "]"}]}], "}"}], "]"}]}], "]"}], "\n", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Instructions", " ", "Panel"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Panel", "[", 
+    RowBox[{
+     RowBox[{"Column", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<Instructions:\>\"", ",", "\"\<Subsubsection\>\""}], 
+         "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<1. Select a rule number (0-255) using the input field \
+above\>\"", ",", "\"\<Text\>\""}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<2. Click 'Generate Custom Notebook' to create a new \
+notebook\>\"", ",", "\"\<Text\>\""}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<3. The new notebook will contain analysis tools \
+specific to that rule\>\"", ",", "\"\<Text\>\""}], "]"}], ",", 
+        RowBox[{"Style", "[", 
+         RowBox[{"\"\<4. Use the controls in the generated notebook to \
+explore the rule\>\"", ",", "\"\<Text\>\""}], "]"}]}], "}"}], "]"}], ",", 
+     RowBox[{"Background", "->", "LightYellow"}], ",", 
+     RowBox[{"FrameMargins", "->", "15"}]}], "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Helper", " ", "Functions"}], "-", 
+     RowBox[{"These", " ", "run", " ", "in", " ", "background"}]}], "*)"}], 
+   "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Rule", " ", "analysis", " ", "function"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"analyzeRule", "[", "ruleNum_Integer", "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"binary", ",", "class", ",", "behavior"}], "}"}], ",", 
+       RowBox[{
+        RowBox[{"binary", "=", 
+         RowBox[{"IntegerDigits", "[", 
+          RowBox[{"ruleNum", ",", "2", ",", "8"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"class", "=", 
+         RowBox[{"Which", "[", 
+          RowBox[{
+           RowBox[{"MemberQ", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+              "0", ",", "8", ",", "32", ",", "40", ",", "128", ",", "136", ",",
+                "160", ",", "168"}], "}"}], ",", "ruleNum"}], "]"}], 
+           ",", "\"\<I (Uniform)\>\"", ",", 
+           RowBox[{"MemberQ", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+              "1", ",", "3", ",", "5", ",", "7", ",", "9", ",", "11", ",", 
+               "13", ",", "15"}], "}"}], ",", "ruleNum"}], "]"}], 
+           ",", "\"\<II (Periodic)\>\"", ",", 
+           RowBox[{"MemberQ", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+              "18", ",", "22", ",", "26", ",", "30", ",", "45", ",", "50", ",",
+                "54", ",", "60", ",", "62", ",", "90", ",", "94", ",", "102", 
+               ",", "106", ",", "110", ",", "122", ",", "126", ",", "146", ",",
+                "150", ",", "154", ",", "158", ",", "182", ",", "186", ",", 
+               "190"}], "}"}], ",", "ruleNum"}], "]"}], 
+           ",", "\"\<III (Chaotic)\>\"", ",", 
+           RowBox[{"MemberQ", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"54", ",", "110"}], "}"}], ",", "ruleNum"}], "]"}], 
+           ",", "\"\<IV (Complex)\>\"", ",", "True", 
+           ",", "\"\<Unclassified\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"behavior", "=", 
+         RowBox[{"Which", "[", 
+          RowBox[{
+           RowBox[{"ruleNum", "==", "0"}], ",", "\"\<All cells die\>\"", ",", 
+           
+           RowBox[{"ruleNum", "==", "255"}], ",", "\"\<All cells live\>\"", ",", 
+           RowBox[{"ruleNum", "==", "30"}], 
+           ",", "\"\<Chaotic, good random number generator\>\"", ",", 
+           RowBox[{"ruleNum", "==", "90"}], 
+           ",", "\"\<Sierpinski triangle pattern\>\"", ",", 
+           RowBox[{"ruleNum", "==", "110"}], 
+           ",", "\"\<Turing complete, complex computation\>\"", ",", 
+           RowBox[{"ruleNum", "==", "184"}], ",", "\"\<Traffic flow model\>\"",
+            ",", "True", ",", "\"\<Explore to determine behavior\>\""}], 
+          "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{"\"\<class\>\"", "->", "class"}], ",", 
+          RowBox[{"\"\<behavior\>\"", "->", "behavior"}]}], "|>"}]}]}], 
+      "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Notebook", " ", "Generation", " ", "Function"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"generateCANotebook", "[", "ruleNumber_Integer", "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"nb", ",", "ruleInfo"}], "}"}], ",", 
+       RowBox[{
+        RowBox[{"ruleInfo", "=", 
+         RowBox[{"analyzeRule", "[", "ruleNumber", "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"nb", "=", 
+         RowBox[{"CreateDocument", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"\"\<Cellular Automaton Rule \>\"", "<>", 
+               RowBox[{"ToString", "[", "ruleNumber", "]"}], 
+               "<>", "\"\< Analysis\>\""}], ",", "\"\<Title\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Rule Information\>\"", ",", "\"\<Section\>\""}], 
+             "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                RowBox[{"\"\<Rule Number: \>\"", ",", 
+                 RowBox[{"ToString", "[", "ruleNumber", "]"}], 
+                 ",", "\"\<\\n\>\"", ",", "\"\<Rule Class: \>\"", ",", 
+                 RowBox[{"ruleInfo", "[", "\"\<class\>\"", "]"}], 
+                 ",", "\"\<\\n\>\"", ",", "\"\<Behavior: \>\"", ",", 
+                 RowBox[{"ruleInfo", "[", "\"\<behavior\>\"", "]"}]}], "}"}], 
+               "]"}], ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Rule Pattern\>\"", ",", "\"\<Subsection\>\""}], 
+             "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Binary Rule Table:\>\"", ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Grid", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<111\>\"", ",", "\"\<110\>\"", 
+                    ",", "\"\<101\>\"", ",", "\"\<100\>\"", ",", "\"\<011\>\"",
+                     ",", "\"\<010\>\"", ",", "\"\<001\>\"", 
+                    ",", "\"\<000\>\""}], "}"}], ",", 
+                    RowBox[{"IntegerDigits", "[", 
+                    RowBox[{"ruleNumber", ",", "2", ",", "8"}], "]"}]}], 
+                   "}"}], ",", 
+                  RowBox[{"Frame", "->", "All"}], ",", 
+                  RowBox[{"Background", "->", 
+                   RowBox[{"{", 
+                    RowBox[{"{", 
+                    RowBox[{"LightGray", ",", "White"}], "}"}], "}"}]}]}], 
+                 "]"}], "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Visual Rule Plot:\>\"", ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"RulePlot", "[", 
+                 RowBox[{"CellularAutomaton", "[", "ruleNumber", "]"}], "]"}],
+                 "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Rule ArrayPlot\>\"", ",", "\"\<Subsection\>\""}], 
+             "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Canonical ArrayPlot:\>\"", ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"ArrayPlot", "[", 
+                 RowBox[{"CellularAutomaton", "[", 
+                  RowBox[{"ruleNumber", ",", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", "1", "}"}], ",", "0"}], "}"}], ",", "100", ",", 
+                   RowBox[{"{", 
+                    RowBox[{"All", ",", "All"}], "}"}]}], "]"}], "]"}], "]"}],
+                "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Random Initial Conditions ArrayPlot:\>\"", 
+              ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"ArrayPlot", "[", "\[IndentingNewLine]", 
+                 RowBox[{"CellularAutomaton", "[", 
+                  RowBox[{"ruleNumber", ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"SeedRandom", "[", "1234", "]"}], ";", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Random", "[", "Integer", "]"}], ",", 
+                    RowBox[{"{", "200", "}"}]}], "]"}]}], ",", "150", ",", 
+                   RowBox[{"{", 
+                    RowBox[{"All", ",", "All"}], "}"}]}], "]"}], "]"}], "]"}],
+                "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Alternate Step ArrayPlot:\>\"", ",", "\"\<Text\>\"",
+               ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"ArrayPlot", "[", 
+                 RowBox[{"MapIndexed", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"Mod", "[", 
+                    RowBox[{
+                    RowBox[{"#1", "+", 
+                    RowBox[{"#2", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "+", "1"}], ",", "2"}], 
+                    "]"}], "&"}], ",", 
+                   RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", "1", "}"}], ",", "0"}], "}"}], ",", "100", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"All", ",", "All"}], "}"}]}], "]"}]}], "]"}], 
+                 "]"}], "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Interactive Visualization\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Manipulate", "[", 
+                 RowBox[{
+                  RowBox[{"Module", "[", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "actualInitCondition", ",", "evolution", ",", 
+                    "displayPattern"}], "}"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{"Choose", " ", "evolution", " ", "method"}], 
+                    "*)"}], 
+                    RowBox[{
+                    RowBox[{"evolution", "=", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"injectRandomness", ",", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    RowBox[{
+                    "Continuously", " ", "injected", " ", "randomness"}], "-", 
+                    RowBox[{
+                    "need", " ", "list", " ", "format", " ", "for", " ", 
+                    "NestList"}]}], "*)"}], 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "listInitCondition", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"listInitCondition", "=", 
+                    RowBox[{"Which", "[", 
+                    RowBox[{
+                    RowBox[{"initType", "==", "\"\<Single cell\>\""}], ",", 
+                    RowBox[{"UnitVector", "[", 
+                    RowBox[{"width", ",", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}]}], "]"}], ",", 
+                    RowBox[{"initType", "==", "\"\<Center cell\>\""}], ",", 
+                    RowBox[{"UnitVector", "[", 
+                    RowBox[{"width", ",", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}]}], "]"}], ",", 
+                    RowBox[{"initType", "==", "\"\<Random\>\""}], ",", 
+                    RowBox[{"RandomChoice", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"100", "-", "percentOnes"}], ",", "percentOnes"}],
+                     "}"}], "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], ",", "width"}], "]"}]}],
+                     "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"SeedRandom", "[", "randomSeed", "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"NestList", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"ReplacePart", "[", 
+                    RowBox[{
+                    RowBox[{"Last", "[", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "#1", ",", "1", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"All", ",", "All"}], "}"}]}], "]"}], "]"}], ",", 
+                    RowBox[{"RandomInteger", "[", "]"}], ",", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}]}], "]"}], "&"}], ",", 
+                    "listInitCondition", ",", "steps"}], "]"}]}]}], "]"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{"Standard", " ", "evolution"}], "*)"}], 
+                    RowBox[{
+                    RowBox[{"actualInitCondition", "=", 
+                    RowBox[{"Which", "[", 
+                    RowBox[{
+                    RowBox[{"initType", "==", "\"\<Single cell\>\""}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", "1", "}"}], ",", "0"}], "}"}], ",", 
+                    RowBox[{"initType", "==", "\"\<Center cell\>\""}], ",", 
+                    RowBox[{"UnitVector", "[", 
+                    RowBox[{"width", ",", 
+                    RowBox[{
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "+", "1"}]}], "]"}], ",", 
+                    RowBox[{"initType", "==", "\"\<Random\>\""}], ",", 
+                    RowBox[{"RandomChoice", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"100", "-", "percentOnes"}], ",", "percentOnes"}],
+                     "}"}], "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], ",", "width"}], "]"}]}],
+                     "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "actualInitCondition", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"steps", ",", "width"}], "}"}]}], "]"}]}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "Apply", " ", "alternating", " ", "colors", " ", "if", " ",
+                     "selected"}], "*)"}], 
+                    RowBox[{"displayPattern", "=", 
+                    RowBox[{"If", "[", 
+                    RowBox[{"alternateColors", ",", 
+                    RowBox[{"MapIndexed", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Mod", "[", 
+                    RowBox[{
+                    RowBox[{"#1", "+", 
+                    RowBox[{"#2", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "+", "1"}], ",", "2"}], 
+                    "]"}], "&"}], ",", "evolution"}], "]"}], ",", 
+                    "evolution"}], "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{"displayPattern", ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "White"}], ",", 
+                    RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}], 
+                    "<>", "\"\< Evolution (\>\"", "<>", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"initType", "==", "\"\<Random\>\""}], ",", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", "percentOnes", "]"}], 
+                    "<>", "\"\<% density\>\""}], ",", "initType"}], "]"}], "<>", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    "injectRandomness", ",", "\"\< - Injected Randomness\>\"",
+                     ",", "\"\<\>\""}], "]"}], "<>", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    "alternateColors", ",", "\"\< - Alternating Colors\>\"", 
+                    ",", "\"\<\>\""}], "]"}], "<>", "\"\<)\>\""}]}], ",", 
+                    RowBox[{"ImageSize", "->", "500"}]}], "]"}]}]}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "initType", ",", "\"\<Single cell\>\"", 
+                    ",", "\"\<Initial Condition\>\""}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    
+                    RowBox[{"\"\<Single cell\>\"", 
+                    "->", "\"\<Single cell\>\""}], ",", 
+                    RowBox[{"\"\<Random\>\"", "->", "\"\<Random\>\""}], ",", 
+                    
+                    RowBox[{"\"\<Center cell\>\"", 
+                    "->", "\"\<Center cell\>\""}]}], "}"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"percentOnes", ",", "50", ",", "\"\<% Ones\>\""}],
+                     "}"}], ",", "0", ",", "100", ",", "1", ",", 
+                    RowBox[{"Enabled", "->", 
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"initType", "==", "\"\<Random\>\""}], "]"}]}]}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "injectRandomness", ",", "False", 
+                    ",", "\"\<Inject Randomness\>\""}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "randomSeed", ",", "1234", ",", "\"\<Random Seed\>\""}], 
+                    "}"}], ",", "1", ",", "9999", ",", "1", ",", 
+                    RowBox[{"Enabled", "->", 
+                    RowBox[{"Dynamic", "[", "injectRandomness", "]"}]}]}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "alternateColors", ",", "False", 
+                    ",", "\"\<Alternate Colors\>\""}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"True", ",", "False"}], "}"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"steps", ",", "100", ",", "\"\<Steps\>\""}], 
+                    "}"}], ",", "50", ",", "200", ",", "1"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"width", ",", "101", ",", "\"\<Width\>\""}], 
+                    "}"}], ",", "51", ",", "201", ",", "2"}], "}"}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Continuously Injected Randomness Analysis\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<This shows 8 different trials of continuously \
+injected randomness at the center position:\>\"", ",", "\"\<Text\>\""}], 
+             "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"width", "=", "101"}], ",", 
+                    RowBox[{"steps", "=", "100"}], ",", "plots"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"plots", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"listInitCondition", ",", "evolution"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"SeedRandom", "[", 
+                    RowBox[{"1234", "+", "i"}], "]"}], ";", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "Different", " ", "seed", " ", "for", " ", "each", " ", 
+                    "trial"}], "*)"}], 
+                    RowBox[{"listInitCondition", "=", 
+                    RowBox[{"UnitVector", "[", 
+                    RowBox[{"width", ",", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}]}], "]"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"evolution", "=", 
+                    RowBox[{"NestList", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"ReplacePart", "[", 
+                    RowBox[{
+                    RowBox[{"Last", "[", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "#1", ",", "1", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"All", ",", "All"}], "}"}]}], "]"}], "]"}], ",", 
+                    RowBox[{"RandomInteger", "[", "]"}], ",", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}]}], "]"}], "&"}], ",", 
+                    "listInitCondition", ",", "steps"}], "]"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{"evolution", ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "White"}], ",", 
+                    RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"PlotRangePadding", "->", "None"}], ",", 
+                    RowBox[{"ImageSize", "->", "250"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Trial \>\"", "<>", 
+                    RowBox[{"ToString", "[", "i", "]"}]}]}]}], "]"}]}]}], 
+                    "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "8"}], "}"}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"plots", ",", "4"}], "]"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "4", " ", "columns", " ", "x", " ", "2", " ", "rows"}], 
+                    "*)"}], 
+                    RowBox[{"Spacings", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Randomness Injection\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<The 'Inject Randomness' feature transforms the \
+cellular automaton from a deterministic system into a stochastic one by \
+continuously adding random perturbations at the center position. This \
+modification enables the study of several important phenomena:\\n\\n\>\"", 
+                 ",", "\"\<Robustness and Stability: How robust are the \
+rule's patterns to constant disturbance? Some rules maintain their \
+characteristic structures despite continuous noise, while others become \
+completely randomized. This reveals the intrinsic stability of different \
+cellular automaton classes.\\n\\n\>\"", 
+                 ",", "\"\<Source Dynamics: The center position acts as a \
+constant 'source' of randomness, simulating real-world systems where there's \
+continuous environmental input or mutation. This is particularly relevant for \
+modeling biological systems, chemical reactions, or social \
+dynamics.\\n\\n\>\"", 
+                 ",", "\"\<Pattern Propagation: Observe how random \
+disturbances propagate through the system. Do they create expanding waves of \
+disorder, or does the rule's logic contain and process the randomness? Some \
+rules can actually use randomness constructively to create more complex \
+patterns.\\n\\n\>\"", 
+                 ",", "\"\<Noise Tolerance: Different rules show varying \
+degrees of noise tolerance. Class I rules (uniform) may quickly absorb \
+randomness, Class II rules (periodic) might maintain some structure, Class \
+III rules (chaotic) may become even more random, while Class IV rules \
+(complex) might show interesting noise-processing behaviors.\\n\\n\>\"", 
+                 ",", "\"\<Real-World Applications: This feature models \
+systems like biological evolution with constant mutation, economic markets \
+with random external shocks, information transmission through noisy channels, \
+ecosystem dynamics with environmental perturbations, and neural networks with \
+synaptic noise.\\n\\n\>\"", 
+                 ",", "\"\<Experimental Suggestions: Try comparing the same \
+rule with and without randomness injection. Use different random seeds to see \
+if patterns are consistent. Vary the initial conditions to see how randomness \
+interacts with different starting configurations.\>\""}], "}"}], "]"}], 
+              ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Density Evolution\>\"", ",", "\"\<Section\>\""}], 
+             "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Manipulate", "[", 
+                 RowBox[{
+                  RowBox[{"Module", "[", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "evolution", ",", "densities", ",", 
+                    "actualInitCondition"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"actualInitCondition", "=", 
+                    RowBox[{"Which", "[", 
+                    RowBox[{
+                    RowBox[{"initType", "==", "\"\<Single cell\>\""}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", "1", "}"}], ",", "0"}], "}"}], ",", 
+                    RowBox[{"initType", "==", "\"\<Center cell\>\""}], ",", 
+                    RowBox[{"UnitVector", "[", 
+                    RowBox[{"width", ",", 
+                    RowBox[{
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "+", "1"}]}], "]"}], ",", 
+                    RowBox[{"initType", "==", "\"\<Random\>\""}], ",", 
+                    RowBox[{"RandomChoice", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"100", "-", "percentOnes"}], ",", "percentOnes"}],
+                     "}"}], "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], ",", "width"}], "]"}]}],
+                     "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"evolution", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "actualInitCondition", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"steps", ",", "width"}], "}"}]}], "]"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"densities", "=", 
+                    RowBox[{"Mean", "/@", "evolution"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"ListLinePlot", "[", 
+                    RowBox[{"densities", ",", 
+                    RowBox[{"PlotRange", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Density vs. Time - Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}], 
+                    "<>", "\"\< (\>\"", "<>", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"initType", "==", "\"\<Random\>\""}], ",", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", "percentOnes", "]"}], 
+                    "<>", "\"\<% initial density\>\""}], ",", "initType"}], 
+                    "]"}], "<>", "\"\<)\>\""}]}], ",", 
+                    RowBox[{"AxesLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Time\>\"", ",", "\"\<Density\>\""}], "}"}]}],
+                     ",", 
+                    RowBox[{"ImageSize", "->", "400"}], ",", 
+                    RowBox[{"GridLines", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"Automatic", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0.25", ",", "0.5", ",", "0.75"}], "}"}]}], 
+                    "}"}]}], ",", 
+                    RowBox[{"GridLinesStyle", "->", "LightGray"}]}], 
+                    "]"}]}]}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "initType", ",", "\"\<Random\>\"", 
+                    ",", "\"\<Initial Condition\>\""}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    
+                    RowBox[{"\"\<Single cell\>\"", 
+                    "->", "\"\<Single cell\>\""}], ",", 
+                    RowBox[{"\"\<Random\>\"", "->", "\"\<Random\>\""}], ",", 
+                    
+                    RowBox[{"\"\<Center cell\>\"", 
+                    "->", "\"\<Center cell\>\""}]}], "}"}]}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"percentOnes", ",", "50", ",", "\"\<% Ones\>\""}],
+                     "}"}], ",", "0", ",", "100", ",", "1", ",", 
+                    RowBox[{"Enabled", "->", 
+                    RowBox[{"Dynamic", "[", 
+                    RowBox[{"initType", "==", "\"\<Random\>\""}], "]"}]}]}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"steps", ",", "100", ",", "\"\<Steps\>\""}], 
+                    "}"}], ",", "50", ",", "300", ",", "1"}], "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"width", ",", "101", ",", "\"\<Width\>\""}], 
+                    "}"}], ",", "51", ",", "201", ",", "2"}], "}"}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Density Sensitivity Analysis\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<This shows how different random initial densities \
+(5% to 95%) affect the rule's evolution:\>\"", ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"width", "=", "100"}], ",", 
+                    RowBox[{"steps", "=", "100"}], ",", "ps", ",", "plots"}], 
+                   "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"ps", "=", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    ".05", ",", ".15", ",", ".25", ",", ".4", ",", ".6", ",", 
+                    ".75", ",", ".85", ",", ".95"}], "}"}]}], ";", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    "8", " ", "probabilities", " ", "for", " ", "a", " ", "2",
+                     "x4", " ", "grid"}], "*)"}], 
+                   RowBox[{"SeedRandom", "[", "1234", "]"}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"plots", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", 
+                    RowBox[{"RandomVariate", "[", 
+                    RowBox[{
+                    RowBox[{"BernoulliDistribution", "[", "p", "]"}], ",", 
+                    "width"}], "]"}], ",", "steps"}], "]"}], ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "White"}], ",", 
+                    RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"ImageSize", "->", "250"}], ",", 
+                    RowBox[{"PlotRangePadding", "->", "None"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"Round", "[", 
+                    RowBox[{"p", "*", "100"}], "]"}], "]"}], 
+                    "<>", "\"\<% density\>\""}]}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"p", ",", "ps"}], "}"}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"plots", ",", "4"}], "]"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "4", " ", "columns", " ", "x", " ", "2", " ", "rows"}], 
+                    "*)"}], 
+                    RowBox[{"Spacings", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Density Effects\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<The density sensitivity analysis reveals how \
+initial population density affects the rule's long-term behavior and pattern \
+formation. This systematic comparison across different densities provides \
+insights into several important aspects:\\n\\n\>\"", 
+                 ",", "\"\<Critical Thresholds: Many cellular automaton rules \
+exhibit critical density thresholds where behavior changes dramatically. \
+Below a certain density, patterns may die out or become sparse, while above \
+it, rich structures emerge. This is analogous to phase transitions in \
+physical systems like percolation or epidemic spread.\\n\\n\>\"", 
+                 ",", "\"\<Density Independence vs. Dependence: Some rules \
+produce remarkably similar patterns regardless of initial density, suggesting \
+robust underlying dynamics. Others show strong density dependence, where low \
+densities create sparse, isolated structures while high densities produce \
+dense, interacting patterns.\\n\\n\>\"", 
+                 ",", "\"\<Scale and Emergence: At larger scales \
+(100\[Times]100 cells), collective behaviors become visible that aren't \
+apparent in smaller systems. Global patterns, waves, and large-scale \
+structures can emerge from simple local rules, especially at intermediate \
+densities where there's sufficient interaction without \
+overcrowding.\\n\\n\>\"", 
+                 ",", "\"\<Population Dynamics Applications: This analysis is \
+particularly relevant for modeling biological populations, where initial \
+population density critically affects survival, growth patterns, and \
+ecosystem stability. Different densities can represent different \
+environmental conditions or initial colonization scenarios.\\n\\n\>\"", 
+                 ",", "\"\<Percolation and Connectivity: The density analysis \
+helps identify percolation thresholds - the minimum density needed for \
+patterns to 'connect' across the entire space. This has applications in \
+network theory, material science, and epidemic modeling.\\n\\n\>\"", 
+                 ",", "\"\<Research Applications: Use this analysis to \
+identify interesting density ranges for further study, understand the rule's \
+robustness to initial conditions, compare different rules' sensitivity to \
+density, and validate theoretical predictions about critical phenomena in \
+cellular automata.\>\""}], "}"}], "]"}], ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Random Initial Condition Variability\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<This shows 8 different completely random initial \
+conditions (50% density) to reveal variability in outcomes:\>\"", 
+              ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"width", "=", "100"}], ",", 
+                    RowBox[{"steps", "=", "100"}], ",", "plots"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"SeedRandom", "[", "1234", "]"}], ";", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    RowBox[{"master", " ", "seed"}], ",", "reproducible"}], 
+                    "*)"}], 
+                   RowBox[{"plots", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", 
+                    RowBox[{"RandomInteger", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "width"}], "]"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "one", " ", "fresh", " ", "random", " ", "IC", " ", 
+                    "each", " ", "time"}], "*)"}], "steps"}], "]"}], ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "White"}], ",", 
+                    RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"PlotRangePadding", "->", "None"}], ",", 
+                    RowBox[{"ImageSize", "->", "250"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Random \>\"", "<>", 
+                    RowBox[{"ToString", "[", "i", "]"}]}]}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "8"}], "}"}]}], "   ", 
+                    RowBox[{"(*", 
+                    RowBox[{"make", " ", "8", " ", "plots"}], "*)"}], "]"}]}],
+                    ";", "\[IndentingNewLine]", 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"plots", ",", "4"}], "]"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "4", " ", "columns", " ", "x", " ", "2", " ", "rows"}], 
+                    "*)"}], 
+                    RowBox[{"Spacings", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Random Variability\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<The random initial condition variability \
+analysis shows how the same rule behaves with different random starting \
+configurations, all at approximately 50% density. This reveals the intrinsic \
+variability and predictability of the rule's dynamics:\\n\\n\>\"", 
+                 ",", "\"\<Deterministic vs. Stochastic Appearance: Even \
+though cellular automaton rules are completely deterministic, different \
+random initial conditions can produce dramatically different outcomes. This \
+analysis shows whether the rule tends toward similar final states regardless \
+of starting configuration, or whether small differences in initial conditions \
+lead to vastly different results.\\n\\n\>\"", 
+                 ",", "\"\<Pattern Consistency: Some rules produce remarkably \
+consistent pattern types across all random initial conditions - similar \
+textures, structures, or organizational principles emerge regardless of the \
+specific starting arrangement. Others show high variability, with each \
+evolution appearing almost unrelated to the others.\\n\\n\>\"", 
+                 ",", "\"\<Sensitivity to Initial Conditions: This \
+visualization reveals whether the rule exhibits sensitive dependence on \
+initial conditions (a hallmark of chaotic systems). If tiny differences in \
+initial random arrangements lead to completely different outcomes, this \
+suggests chaotic dynamics.\\n\\n\>\"", 
+                 ",", "\"\<Ergodic Properties: Rules that produce similar \
+statistical properties (like final density, pattern frequency, or structural \
+measures) across different random starts may have ergodic properties, where \
+long-term averages are independent of initial conditions.\\n\\n\>\"", 
+                 ",", "\"\<Practical Modeling Implications: In real-world \
+applications, initial conditions are rarely known precisely. This analysis \
+shows how robust the rule's predictions are to uncertainty in initial states \
+- crucial for modeling natural systems where exact initial configurations are \
+impossible to determine.\\n\\n\>\"", 
+                 ",", "\"\<Statistical Analysis Opportunities: Use this set \
+of evolutions to calculate statistical measures like final density \
+distributions, pattern correlation lengths, or emergence times for specific \
+structures. This provides quantitative characterization of the rule's \
+behavior under random initial conditions.\>\""}], "}"}], "]"}], 
+              ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Damage Spreading Analysis\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<This shows how tiny perturbations (flipping one \
+bit) propagate through the system. Red areas show where the perturbed and \
+original evolutions differ:\>\"", ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"width", "=", "101"}], ",", 
+                    RowBox[{"steps", "=", "100"}], ",", "plots"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"SeedRandom", "[", "1234", "]"}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"plots", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "init", ",", "initFlipped", ",", "ca1", ",", "ca2", ",", 
+                    "diff"}], "}"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{"random", " ", "initial", " ", "condition"}], 
+                    "*)"}], 
+                    RowBox[{
+                    RowBox[{"init", "=", 
+                    RowBox[{"RandomInteger", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "width"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"flip", " ", "the", " ", "middle", " ", "bit"}], 
+                    "*)"}], 
+                    RowBox[{"initFlipped", "=", 
+                    RowBox[{"ReplacePart", "[", 
+                    RowBox[{"init", ",", 
+                    RowBox[{
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "->", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"init", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "]"}], "]"}]}]}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"evolve", " ", "both"}], "*)"}], 
+                    RowBox[{"ca1", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "steps"}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"ca2", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "initFlipped", ",", "steps"}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"difference", " ", "pattern"}], "*)"}], 
+                    RowBox[{"diff", "=", 
+                    RowBox[{"BitXor", "@@@", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{"ca1", ",", "ca2"}], "}"}], "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"overlay", ":", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"black", "/", "white"}], " ", "base"}], "+", 
+                    RowBox[{"red", " ", "differences"}]}]}], "*)"}], 
+                    RowBox[{"Show", "[", 
+                    RowBox[{
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{"ca1", ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "White"}], ",", 
+                    RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"PlotRangePadding", "->", "None"}], ",", 
+                    RowBox[{"ImageSize", "->", "250"}]}], "]"}], ",", 
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{"diff", ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "None"}], ",", 
+                    RowBox[{"1", "->", "Red"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"PlotRangePadding", "->", "None"}], ",", 
+                    RowBox[{"ImageSize", "->", "250"}]}], "]"}]}], "]"}]}]}], 
+                    "]"}], ",", 
+                    RowBox[{"{", "8", "}"}]}], "  ", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "eight", " ", "different", " ", "random", " ", "ICs"}], 
+                    "*)"}], "]"}]}], ";", "\[IndentingNewLine]", 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"plots", ",", "4"}], "]"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "4", " ", "columns", " ", "x", " ", "2", " ", "rows"}], 
+                    "*)"}], 
+                    RowBox[{"Spacings", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Damage Spreading\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<Damage spreading analysis reveals how cellular \
+automaton rules respond to tiny perturbations - one of the most fundamental \
+characteristics for understanding system stability and information \
+propagation. This analysis starts with pairs of nearly identical initial \
+conditions (differing by just one flipped bit) and tracks how this \
+microscopic difference evolves:\\n\\n\>\"", 
+                 ",", "\"\<Stability vs. Sensitivity: Rules that quickly heal \
+small perturbations (red areas disappear) demonstrate self-repair and \
+stability properties. Those where tiny changes explode into large differences \
+exhibit sensitive dependence on initial conditions - a hallmark of chaotic \
+dynamics. This distinction is crucial for applications requiring robust, \
+predictable behavior.\\n\\n\>\"", 
+                 ",", "\"\<Information Propagation: The red difference \
+regions show exactly how information travels through the cellular automaton. \
+Some rules propagate changes in expanding cones at specific speeds, others \
+create complex interference patterns, and some maintain localized damage that \
+neither grows nor shrinks.\\n\\n\>\"", 
+                 ",", "\"\<Error Correction Properties: In computational \
+applications, this analysis reveals whether the rule has inherent \
+error-correction capabilities. Rules that spontaneously repair small errors \
+are valuable for robust computation and reliable information storage, while \
+those that amplify errors might be useful for mixing and randomization.\\n\\n\
+\>\"", ",", "\"\<Pattern Interaction Dynamics: Damage spreading often reveals \
+how different structures in the cellular automaton interact with each other. \
+Differences may propagate differently through various pattern types, showing \
+which structures are stable and which are fragile to perturbations.\\n\\n\>\"",
+                  ",", "\"\<Critical Phenomena: Many rules exhibit critical \
+points where damage spreading behavior changes dramatically. Near these \
+critical points, the system may show scale-invariant damage patterns, \
+long-range correlations, or power-law distributions - signatures of complex \
+systems at the edge of chaos.\\n\\n\>\"", 
+                 ",", "\"\<Real-World Applications: This analysis is \
+essential for modeling biological evolution (mutation effects), network \
+resilience (single node failures), material science (crack propagation), and \
+social systems (rumor spreading). Understanding how small changes cascade \
+through complex systems is fundamental to many scientific \
+disciplines.\\n\\n\>\"", 
+                 ",", "\"\<Research Opportunities: Use damage spreading \
+patterns to classify rules, measure information propagation speeds, identify \
+critical parameters, study phase transitions, and validate theoretical \
+predictions about complex system behavior.\>\""}], "}"}], "]"}], 
+              ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Damage Spreading Dynamics\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<This shows the quantitative dynamics of damage \
+spreading - how the number of differing cells changes over time:\>\"", 
+              ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"width", "=", "101"}], ",", 
+                    RowBox[{"steps", "=", "100"}], ",", "plots"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"SeedRandom", "[", "1234", "]"}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"plots", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "init", ",", "initFlipped", ",", "ca1", ",", "ca2", ",", 
+                    "diff", ",", "counts"}], "}"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{"random", " ", "initial", " ", "condition"}], 
+                    "*)"}], 
+                    RowBox[{
+                    RowBox[{"init", "=", 
+                    RowBox[{"RandomInteger", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "width"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"initFlipped", "=", 
+                    RowBox[{"ReplacePart", "[", 
+                    RowBox[{"init", ",", 
+                    RowBox[{
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "->", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"init", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "]"}], "]"}]}]}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"evolve", " ", "both"}], "*)"}], 
+                    RowBox[{"ca1", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "steps"}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"ca2", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "initFlipped", ",", "steps"}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"difference", " ", "pattern"}], "*)"}], 
+                    RowBox[{"diff", "=", 
+                    RowBox[{"BitXor", "@@@", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{"ca1", ",", "ca2"}], "}"}], "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "count", " ", "red", " ", "cells", " ", "at", " ", "each",
+                     " ", "step"}], "*)"}], 
+                    RowBox[{"counts", "=", 
+                    RowBox[{"Total", "/@", "diff"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "make", " ", "an", " ", "XY", " ", "line", " ", "plot"}], 
+                    "*)"}], 
+                    RowBox[{"ListLinePlot", "[", 
+                    RowBox[{"counts", ",", 
+                    RowBox[{"PlotStyle", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"Red", ",", "Thick"}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "True"}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Step\>\"", ",", "\"\<Cells Changed\>\""}], 
+                    "}"}]}], ",", 
+                    RowBox[{"PlotRange", "->", "All"}], ",", 
+                    RowBox[{"ImageSize", "->", "250"}], ",", 
+                    RowBox[{"Axes", "->", "False"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Trial \>\"", "<>", 
+                    RowBox[{"ToString", "[", "i", "]"}]}]}]}], "]"}]}]}], 
+                    "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "8"}], "}"}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"plots", ",", "4"}], "]"}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "4", " ", "columns", " ", "x", " ", "2", " ", "rows"}], 
+                    "*)"}], 
+                    RowBox[{"Spacings", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Damage Dynamics\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<The damage spreading dynamics plots provide \
+quantitative time series data showing exactly how perturbations evolve \
+numerically. Each graph tracks the number of cells that differ between the \
+original and perturbed evolutions at every time step, revealing the \
+mathematical structure underlying the visual patterns:\\n\\n\>\"", 
+                 ",", "\"\<Growth vs. Decay Patterns: The time series \
+immediately reveal whether damage grows exponentially (indicating chaos), \
+decays to zero (indicating stability), oscillates periodically (indicating \
+cyclic repair), or reaches a steady state (indicating equilibrium between \
+creation and annihilation of differences).\\n\\n\>\"", 
+                 ",", "\"\<Quantitative Classification: Different rule \
+classes show characteristic damage dynamics signatures. Class I rules \
+typically show rapid decay to zero, Class II rules often show oscillatory \
+patterns, Class III rules frequently exhibit sustained growth or high-level \
+fluctuations, while Class IV rules may show complex, intermediate \
+behaviors.\\n\\n\>\"", 
+                 ",", "\"\<Critical Point Detection: Near critical phase \
+transitions, damage dynamics often show power-law scaling, long-term \
+correlations, or scale-invariant fluctuations. These mathematical signatures \
+can identify rules operating at the edge of chaos - often the most \
+computationally interesting and complex.\\n\\n\>\"", 
+                 ",", "\"\<Statistical Analysis Opportunities: These time \
+series enable rigorous statistical analysis including autocorrelation \
+functions, power spectral density, fractal dimension calculations, and \
+entropy measures. Such analyses can distinguish between truly random \
+fluctuations and deterministic chaos.\\n\\n\>\"", 
+                 ",", "\"\<Comparative Analysis: By examining multiple trials \
+(different random initial conditions), you can assess the consistency of \
+damage dynamics. Some rules show highly reproducible damage curves, while \
+others exhibit high variability depending on the specific initial \
+configuration.\\n\\n\>\"", 
+                 ",", "\"\<Information Theory Applications: The number of \
+differing cells provides a direct measure of information divergence between \
+the two evolutions. This connects to fundamental concepts in information \
+theory, thermodynamics, and the physics of computation.\\n\\n\>\"", 
+                 ",", "\"\<Practical Implications: For applications requiring \
+predictable behavior, rules with rapidly decaying damage are preferred. For \
+applications requiring sensitivity (like random number generation or mixing), \
+rules with growing or sustained damage are valuable. For complex computation, \
+rules showing intermediate damage dynamics often provide the best \
+balance.\>\""}], "}"}], "]"}], ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Damage Spreading Width Analysis\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<This measures the spatial extent (light cone) of \
+damage spreading - how wide the perturbation influence spreads over time:\>\"",
+               ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"width", "=", "101"}], ",", 
+                    RowBox[{"steps", "=", "100"}], ",", "plots"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"SeedRandom", "[", "1234", "]"}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"plots", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "init", ",", "initFlipped", ",", "ca1", ",", "ca2", ",", 
+                    "diff", ",", "widths"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"init", "=", 
+                    RowBox[{"RandomInteger", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "width"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"initFlipped", "=", 
+                    RowBox[{"ReplacePart", "[", 
+                    RowBox[{"init", ",", 
+                    RowBox[{
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "->", 
+                    RowBox[{"1", "-", 
+                    RowBox[{"init", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}], "]"}], "]"}]}]}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"ca1", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "steps"}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"ca2", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "initFlipped", ",", "steps"}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"diff", "=", 
+                    RowBox[{"BitXor", "@@@", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{"ca1", ",", "ca2"}], "}"}], "]"}]}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    RowBox[{"width", " ", "per", " ", "step"}], "=", 
+                    RowBox[{
+                    RowBox[{"last", " ", "1", " ", "index"}], "-", 
+                    RowBox[{"first", " ", "1", " ", "index", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"0", " ", "if", " ", "none"}], ")"}]}]}]}], 
+                    "*)"}], 
+                    RowBox[{"widths", "=", 
+                    RowBox[{"Map", "[", 
+                    RowBox[{
+                    RowBox[{"Function", "[", 
+                    RowBox[{"row", ",", 
+                    RowBox[{"With", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"pos", "=", 
+                    RowBox[{"Flatten", "@", 
+                    RowBox[{"Position", "[", 
+                    RowBox[{"row", ",", "1"}], "]"}]}]}], "}"}], ",", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"pos", "===", 
+                    RowBox[{"{", "}"}]}], ",", "0", ",", 
+                    RowBox[{
+                    RowBox[{"Last", "@", "pos"}], "-", 
+                    RowBox[{"First", "@", "pos"}]}]}], "]"}]}], "]"}]}], 
+                    "]"}], ",", "diff"}], "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"ListLinePlot", "[", 
+                    RowBox[{
+                    RowBox[{"Transpose", "@", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", "steps"}], "]"}], ",", "widths"}], 
+                    "}"}]}], ",", 
+                    RowBox[{"PlotStyle", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"Blue", ",", "Thick"}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "True"}], ",", 
+                    RowBox[{"Axes", "->", "False"}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Step\>\"", ",", "\"\<Pattern Width\>\""}], 
+                    "}"}]}], ",", 
+                    RowBox[{"PlotRange", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "steps"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", 
+                    RowBox[{"width", "-", "1"}]}], "}"}]}], "}"}]}], ",", 
+                    RowBox[{"ImageSize", "->", "250"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Trial \>\"", "<>", 
+                    RowBox[{"ToString", "[", "i", "]"}]}]}]}], "]"}]}]}], 
+                    "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "8"}], "}"}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"plots", ",", "4"}], "]"}], ",", 
+                    RowBox[{"Spacings", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Spatial Propagation\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<The damage spreading width analysis measures the \
+spatial extent of perturbation influence over time, revealing fundamental \
+properties of information propagation and the cellular automaton's 'light \
+cone' structure. This analysis tracks how far the effects of a single bit \
+flip spread spatially as the system evolves:\\n\\n\>\"", 
+                 ",", "\"\<Information Propagation Speed: The slope of the \
+width curve reveals the maximum speed at which information can travel through \
+the cellular automaton. Linear growth indicates constant propagation speed, \
+while curved growth suggests acceleration, deceleration, or complex \
+propagation dynamics. Many elementary rules show characteristic maximum \
+speeds (often 1 cell per time step).\\n\\n\>\"", 
+                 ",", "\"\<Light Cone Structure: In physics, a light cone \
+defines the region of spacetime that can be influenced by an event. \
+Similarly, this analysis reveals the cellular automaton's causal structure - \
+how far influence can reach in a given time. This is fundamental for \
+understanding locality and information processing capabilities.\\n\\n\>\"", 
+                 ",", "\"\<Ballistic vs. Diffusive Spreading: Linear width \
+growth indicates ballistic propagation (like particles moving at constant \
+speed), while square-root growth suggests diffusive spreading (like random \
+walk processes). Some rules show intermediate behaviors or transitions \
+between regimes, indicating complex underlying dynamics.\\n\\n\>\"", 
+                 ",", "\"\<Finite-Size Effects: When the damage width \
+approaches the system size, boundary effects become important. The analysis \
+reveals whether damage reflects off boundaries, wraps around (for periodic \
+boundaries), or gets absorbed, providing insights into the rule's behavior in \
+finite systems.\\n\\n\>\"", 
+                 ",", "\"\<Stability Boundaries: The width analysis can \
+reveal spatial stability boundaries - regions beyond which perturbations \
+cannot propagate. Rules with bounded spreading show localization properties, \
+while unbounded spreading indicates long-range correlation and potential for \
+global influence from local changes.\\n\\n\>\"", 
+                 ",", "\"\<Computational Implications: For parallel \
+computation applications, the width growth rate determines communication \
+requirements and synchronization needs. Rules with bounded spreading can be \
+computed efficiently in parallel, while those with rapid spreading require \
+extensive inter-processor communication.\\n\\n\>\"", 
+                 ",", "\"\<Pattern Formation Insights: The width dynamics \
+reveal how local perturbations evolve into global patterns. Some rules show \
+width oscillations indicating breathing patterns, others show plateaus \
+suggesting stable structures, and some show complex width dynamics indicating \
+intricate pattern interactions.\\n\\n\>\"", 
+                 ",", "\"\<Critical Behavior: Near critical points, width \
+spreading often shows scale-invariant or power-law behavior. This can \
+identify rules at phase transition boundaries where small parameter changes \
+lead to qualitatively different spatial propagation properties.\>\""}], "}"}],
+                "]"}], ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<Ensemble Properties\>\"", ",", "\"\<Section\>\""}], 
+             "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<These analyses examine statistical properties \
+averaged over many random initial conditions, revealing the rule's \
+fundamental characteristics beyond individual evolutions:\>\"", 
+              ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Power Spectrum Analysis\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"wid", "=", "1024"}], ",", 
+                    RowBox[{"t", "=", "200"}], ",", 
+                    RowBox[{"nav", "=", "40"}], ",", "avgSpec"}], "}"}], ",", 
+                  
+                  RowBox[{
+                   RowBox[{"SeedRandom", "[", "1234", "]"}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    "average", " ", "magnitude", " ", "spectrum", " ", "over",
+                     " ", "nav", " ", "random", " ", "ICs"}], "*)"}], 
+                   RowBox[{"avgSpec", "=", 
+                    RowBox[{"Mean", "@", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"With", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"row", "=", 
+                    RowBox[{"Last", "@", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", 
+                    RowBox[{"RandomInteger", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "wid"}], "]"}], ",", 
+                    "t"}], "]"}]}]}], "}"}], ",", 
+                    RowBox[{"Abs", "@", 
+                    RowBox[{
+                    RowBox[{"Fourier", "[", "row", "]"}], "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ";;", 
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"wid", "/", "2"}], "]"}]}], "]"}], "]"}]}]}], 
+                    "]"}], ",", 
+                    RowBox[{"{", "nav", "}"}]}], "]"}]}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"ListLinePlot", "[", 
+                    RowBox[{"avgSpec", ",", 
+                    RowBox[{"Filling", "->", "Axis"}], ",", 
+                    RowBox[{"PlotStyle", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"GrayLevel", "[", "0", "]"}], "}"}]}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{"black", " ", "line"}], "*)"}], 
+                    RowBox[{"FillingStyle", "->", 
+                    RowBox[{"GrayLevel", "[", "0.7", "]"}]}], ",", 
+                    RowBox[{"(*", 
+                    RowBox[{"gray", " ", "shading"}], "*)"}], 
+                    RowBox[{"Frame", "->", "True"}], ",", 
+                    RowBox[{"Axes", "->", "False"}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<Spatial Frequency Index k\>\"", 
+                    ",", "\"\<Average |F(k)|\>\""}], "}"}]}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Power Spectrum - Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}]}]}], ",", 
+                    RowBox[{"ImageSize", "->", "600"}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Ensemble Density Evolution\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<1. Enhanced Density Evolution Heatmap:\>\"", 
+              ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"wid", "=", "100"}], ",", 
+                    RowBox[{"t", "=", "80"}], ",", 
+                    RowBox[{"nInit", "=", "50"}], ",", "initStates", ",", 
+                    "densityMap"}], "}"}], ",", 
+                  RowBox[{"(*", 
+                   RowBox[{
+                   "Generate", " ", "initial", " ", "states", " ", "with", " ",
+                     "different", " ", "densities"}], "*)"}], 
+                  RowBox[{
+                   RowBox[{"initStates", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"RandomSample", "[", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"wid", "-", "i"}], "}"}]}], "]"}]}], "]"}], "]"}],
+                     ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "0", ",", "wid", ",", 
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"wid", "/", "nInit"}], "]"}]}], "}"}]}], "]"}]}], 
+                   ";", "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{"Compute", " ", "density", " ", "evolution"}], 
+                    "*)"}], 
+                   RowBox[{"densityMap", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "ca", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"ca", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "t"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"Mean", "/@", "ca"}]}]}], " ", 
+                    RowBox[{"(*", 
+                    RowBox[{
+                    "Compute", " ", "density", " ", "at", " ", "each", " ", 
+                    "time", " ", "step"}], "*)"}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"init", ",", "initStates"}], "}"}]}], "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"ArrayPlot", "[", 
+                    RowBox[{"densityMap", ",", 
+                    RowBox[{"ColorFunction", "->", "\"\<TemperatureMap\>\""}],
+                     ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Density Evolution - Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}]}]}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<Time Steps\>\"", 
+                    ",", "\"\<Initial Density\>\""}], "}"}]}], ",", 
+                    RowBox[{"FrameTicks", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "i"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "0", ",", "t", ",", "10"}], "}"}]}], 
+                    "]"}], ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"Round", "[", 
+                    RowBox[{"100", "*", 
+                    RowBox[{"i", "/", 
+                    RowBox[{"Length", "[", "initStates", "]"}]}]}], "]"}], 
+                    "]"}], "<>", "\"\<%\>\""}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", 
+                    RowBox[{"Length", "[", "initStates", "]"}], ",", "5"}], 
+                    "}"}]}], "]"}]}], "}"}]}], ",", 
+                    RowBox[{"AspectRatio", "->", "0.6"}], ",", 
+                    RowBox[{"ImageSize", "->", "500"}], ",", 
+                    RowBox[{"PlotLegends", "->", "Automatic"}]}], "]"}]}]}], 
+                 "]"}], "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<2. Density Contour Plot:\>\"", ",", "\"\<Text\>\"", 
+              ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"wid", "=", "100"}], ",", 
+                    RowBox[{"t", "=", "80"}], ",", 
+                    RowBox[{"nInit", "=", "50"}], ",", "initStates", ",", 
+                    "densityMap"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"initStates", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"RandomSample", "[", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"wid", "-", "i"}], "}"}]}], "]"}]}], "]"}], "]"}],
+                     ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "0", ",", "wid", ",", 
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"wid", "/", "nInit"}], "]"}]}], "}"}]}], "]"}]}], 
+                   ";", "\[IndentingNewLine]", 
+                   RowBox[{"densityMap", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "ca", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"ca", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "t"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"Mean", "/@", "ca"}]}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"init", ",", "initStates"}], "}"}]}], "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"ListContourPlot", "[", 
+                    RowBox[{
+                    RowBox[{"Flatten", "[", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", 
+                    RowBox[{"i", "/", 
+                    RowBox[{"Length", "[", "initStates", "]"}]}], ",", 
+                    RowBox[{"densityMap", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", 
+                    RowBox[{"Length", "[", "initStates", "]"}]}], "}"}], ",", 
+                    
+                    RowBox[{"{", 
+                    RowBox[{"j", ",", 
+                    RowBox[{"Length", "[", 
+                    RowBox[{"densityMap", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "}"}]}], "]"}], ",",
+                     "1"}], "]"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Density Contours - Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}]}]}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<Time Steps\>\"", 
+                    ",", "\"\<Initial Density\>\""}], "}"}]}], ",", 
+                    RowBox[{"ColorFunction", "->", "\"\<Rainbow\>\""}], ",", 
+                    RowBox[{"Contours", "->", "10"}], ",", 
+                    RowBox[{"ImageSize", "->", "500"}], ",", 
+                    RowBox[{"PlotLegends", "->", "Automatic"}]}], "]"}]}]}], 
+                 "]"}], "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<3. Individual Density Trajectories:\>\"", 
+              ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"wid", "=", "100"}], ",", 
+                    RowBox[{"t", "=", "80"}], ",", 
+                    RowBox[{"nInit", "=", "50"}], ",", "initStates", ",", 
+                    "densityMap"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"initStates", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"RandomSample", "[", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"wid", "-", "i"}], "}"}]}], "]"}]}], "]"}], "]"}],
+                     ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "0", ",", "wid", ",", 
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"wid", "/", "nInit"}], "]"}]}], "}"}]}], "]"}]}], 
+                   ";", "\[IndentingNewLine]", 
+                   RowBox[{"densityMap", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "ca", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"ca", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "t"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"Mean", "/@", "ca"}]}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"init", ",", "initStates"}], "}"}]}], "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"ListLinePlot", "[", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", "t"}], "]"}], ",", 
+                    RowBox[{"densityMap", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}]}], "}"}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "1", ",", 
+                    RowBox[{"Length", "[", "initStates", "]"}], ",", "3"}], 
+                    "}"}]}], "]"}], ",", 
+                    RowBox[{
+                    "PlotLabel", 
+                    "->", "\"\<Density Trajectories (every 3rd initial \
+condition)\>\""}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Time Steps\>\"", ",", "\"\<Density\>\""}], 
+                    "}"}]}], ",", 
+                    RowBox[{"PlotRange", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], ",", 
+                    RowBox[{"ColorFunction", "->", "\"\<Rainbow\>\""}], ",", 
+                    RowBox[{"ImageSize", "->", "500"}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{"\"\<4. Statistical Summary:\>\"", ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"wid", "=", "100"}], ",", 
+                    RowBox[{"t", "=", "80"}], ",", 
+                    RowBox[{"nInit", "=", "50"}], ",", "initStates", ",", 
+                    "densityMap", ",", "meanDensity", ",", "stdDensity"}], 
+                   "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"initStates", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"RandomSample", "[", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"wid", "-", "i"}], "}"}]}], "]"}]}], "]"}], "]"}],
+                     ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "0", ",", "wid", ",", 
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"wid", "/", "nInit"}], "]"}]}], "}"}]}], "]"}]}], 
+                   ";", "\[IndentingNewLine]", 
+                   RowBox[{"densityMap", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "ca", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"ca", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "t"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"Mean", "/@", "ca"}]}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"init", ",", "initStates"}], "}"}]}], "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"meanDensity", "=", 
+                    RowBox[{"Mean", "[", "densityMap", "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"stdDensity", "=", 
+                    RowBox[{"StandardDeviation", "[", "densityMap", "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"ListPlot", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", "t"}], "]"}], ",", "meanDensity"}], 
+                    "}"}], "]"}], ",", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", "t"}], "]"}], ",", 
+                    RowBox[{"meanDensity", "+", "stdDensity"}]}], "}"}], 
+                    "]"}], ",", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", "t"}], "]"}], ",", 
+                    RowBox[{"meanDensity", "-", "stdDensity"}]}], "}"}], 
+                    "]"}]}], "}"}], ",", 
+                    RowBox[{"Joined", "->", "True"}], ",", 
+                    RowBox[{"PlotStyle", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"Thick", ",", "Dashed", ",", "Dashed"}], "}"}]}], 
+                    ",", 
+                    RowBox[{
+                    "PlotLabel", 
+                    "->", "\"\<Mean Density \[PlusMinus] Standard Deviation\>\
+\""}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Time Steps\>\"", ",", "\"\<Density\>\""}], 
+                    "}"}]}], ",", 
+                    RowBox[{"PlotLegends", "->", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<Mean\>\"", ",", "\"\<+1\[Sigma]\>\"", 
+                    ",", "\"\<-1\[Sigma]\>\""}], "}"}]}], ",", 
+                    RowBox[{"ImageSize", "->", "500"}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<5. Final State Distribution:\>\"", 
+              ",", "\"\<Text\>\"", ",", 
+              RowBox[{"FontWeight", "->", "Bold"}]}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"wid", "=", "100"}], ",", 
+                    RowBox[{"t", "=", "80"}], ",", 
+                    RowBox[{"nInit", "=", "50"}], ",", "initStates", ",", 
+                    "densityMap", ",", "finalDensities"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"initStates", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"RandomSample", "[", 
+                    RowBox[{"Join", "[", 
+                    RowBox[{
+                    RowBox[{"Table", "[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"{", "i", "}"}]}], "]"}], ",", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"wid", "-", "i"}], "}"}]}], "]"}]}], "]"}], "]"}],
+                     ",", 
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "0", ",", "wid", ",", 
+                    RowBox[{"Floor", "[", 
+                    RowBox[{"wid", "/", "nInit"}], "]"}]}], "}"}]}], "]"}]}], 
+                   ";", "\[IndentingNewLine]", 
+                   RowBox[{"densityMap", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "ca", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"ca", "=", 
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "init", ",", "t"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"Mean", "/@", "ca"}]}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"init", ",", "initStates"}], "}"}]}], "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"finalDensities", "=", 
+                    RowBox[{"densityMap", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"All", ",", 
+                    RowBox[{"-", "1"}]}], "]"}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"Histogram", "[", 
+                    RowBox[{"finalDensities", ",", 
+                    RowBox[{
+                    "PlotLabel", 
+                    "->", "\"\<Distribution of Final Densities\>\""}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Final Density\>\"", ",", "\"\<Count\>\""}], 
+                    "}"}]}], ",", 
+                    RowBox[{"ColorFunction", "->", "\"\<DarkRainbow\>\""}], ",", 
+                    RowBox[{"ImageSize", "->", "400"}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Ensemble Properties\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<Ensemble properties reveal the rule's \
+fundamental statistical behavior by averaging over many random initial \
+conditions, providing insights that single evolutions cannot capture. These \
+analyses are essential for understanding the cellular automaton's intrinsic \
+characteristics:\\n\\n\>\"", 
+                 ",", "\"\<Power Spectrum Insights: The power spectrum \
+measures the frequencies of spatial patterns in the final evolved state, \
+revealing the rule's preference for certain spatial scales. A flat spectrum \
+suggests random-like activity with no preferred frequencies, while peaks \
+indicate characteristic wavelengths or periodic structures. Sharp peaks \
+suggest regular patterns, while broad peaks indicate quasi-periodic or \
+complex spatial organization.\\n\\n\>\"", 
+                 ",", "\"\<Density Evolution Dynamics: The density evolution \
+heatmap \[Rho](p,t) shows how density changes over time for ALL possible \
+initial densities simultaneously. Horizontal patterns indicate conservation \
+(density preserved), upward trends show growth dynamics, downward trends \
+indicate decay, and complex curves reveal non-trivial population dynamics. \
+This comprehensive view reveals phase transitions and critical \
+densities.\\n\\n\>\"", 
+                 ",", "\"\<Conservation vs. Growth Patterns: Horizontal lines \
+in the density evolution indicate conservative rules that maintain density \
+over time. Upward or downward trends show rules that systematically create or \
+destroy cells. Complex curves indicate rules with intricate population \
+dynamics that depend on both initial density and time.\\n\\n\>\"", 
+                 ",", "\"\<Attractor Analysis: The final density distribution \
+\[Rho]_final(p) reveals the rule's long-term attractors. A diagonal line \
+indicates identity mapping (final density equals initial density), horizontal \
+lines show fixed-point attractors regardless of initial conditions, and \
+complex curves indicate multiple attractors or chaotic behavior with \
+sensitive dependence on initial density.\\n\\n\>\"", 
+                 ",", "\"\<Critical Phenomena Detection: Sharp transitions in \
+the density evolution heatmap often indicate critical phenomena and phase \
+boundaries. These appear as sudden changes in behavior at specific initial \
+densities, revealing critical thresholds where the rule's qualitative \
+behavior changes dramatically.\\n\\n\>\"", 
+                 ",", "\"\<Sensitivity Assessment: Smooth gradients in the \
+heatmap indicate robust behavior where small changes in initial density lead \
+to small changes in evolution. Sharp boundaries or chaotic patterns reveal \
+sensitive dependence on initial conditions - the hallmark of chaotic \
+dynamics.\\n\\n\>\"", 
+                 ",", "\"\<Basin Structure: The final density plot reveals \
+basin structure - regions of initial densities that lead to similar final \
+states. Single attractors appear as horizontal lines, multiple basins show up \
+as plateaus at different levels, and chaotic behavior produces complex, \
+irregular curves.\\n\\n\>\"", 
+                 ",", "\"\<Research Applications: Use density evolution \
+analysis to classify rules by their population dynamics, identify critical \
+densities and phase transitions, predict long-term behavior from initial \
+conditions, compare different rules quantitatively, and validate theoretical \
+predictions about cellular automaton attractors and conservation laws.\>\""}],
+                 "}"}], "]"}], ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Finite Size Properties\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<These analyses examine the rule's behavior in \
+small, finite systems, revealing attractor structure and repetition periods. \
+State Transition Diagrams are directed graphs, where each node represents a \
+possible binary configuration of the grid (with periodic boundaries). An \
+arrow connects one state to its successor, given the automaton's rule. Loops \
+and cycles correspond to repeating patterns\[LongDash]attractors in the \
+finite CA. How Would You Construct One by Hand? Choose a grid width (e.g., 3 \
+cells). List all possible states. For 3 cells: 000, 001, 010, 011, 100, 101, \
+110, 111. For each state: Apply the CA rule (with periodic boundaries) to \
+generate the next state. Cells update according to the values of themselves \
+and their left/right neighbors (use the rule's lookup table). Draw an arrow \
+from the current state to its next state. Repeat until every state is mapped. \
+Visualize the graph: Arrange nodes so cycles (loops) and branches are \
+clear.\>\"", ",", "\"\<Text\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<State Transition Diagrams\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"stateTransitionGraph", ",", "graphs"}], "}"}], ",", 
+                  RowBox[{"(*", 
+                   RowBox[{
+                   "Function", " ", "to", " ", "create", " ", "state", " ", 
+                    "transition", " ", "graph", " ", "for", " ", "given", " ",
+                     "width"}], "*)"}], 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"stateTransitionGraph", "[", 
+                    RowBox[{"width_", ",", "rule_"}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "states", ",", "successors", ",", "stateIndex", ",", 
+                    "edges"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"states", "=", 
+                    RowBox[{"Tuples", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "width"}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"successors", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"rule", ",", "#", ",", "1"}], "]"}], "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "&"}], "/@", "states"}]}],
+                     ";", "\[IndentingNewLine]", 
+                    RowBox[{"stateIndex", "=", 
+                    RowBox[{"AssociationMap", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"FromDigits", "[", 
+                    RowBox[{"#", ",", "2"}], "]"}], "&"}], ",", "states"}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"edges", "=", 
+                    RowBox[{"MapThread", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"stateIndex", "[", "#1", "]"}], "->", 
+                    RowBox[{"stateIndex", "[", "#2", "]"}]}], "&"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"states", ",", "successors"}], "}"}]}], "]"}]}], ";",
+                     "\[IndentingNewLine]", 
+                    RowBox[{"Graph", "[", 
+                    RowBox[{
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"2", "^", "width"}], "-", "1"}]}], "]"}], ",", 
+                    "edges", ",", 
+                    RowBox[{"DirectedEdges", "->", "True"}], ",", 
+                    RowBox[{
+                    "GraphLayout", 
+                    "->", "\"\<SpringElectricalEmbedding\>\""}], ",", 
+                    RowBox[{"VertexStyle", "->", 
+                    RowBox[{"Directive", "[", 
+                    RowBox[{"Black", ",", 
+                    RowBox[{"PointSize", "[", "0.02", "]"}]}], "]"}]}], ",", 
+                    RowBox[{"EdgeStyle", "->", 
+                    RowBox[{"Directive", "[", 
+                    RowBox[{"Gray", ",", 
+                    RowBox[{"Thickness", "[", "0.003", "]"}]}], "]"}]}], ",", 
+                    
+                    RowBox[{"ImageSize", "->", "200"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"\"\<Width \>\"", "<>", 
+                    RowBox[{"ToString", "[", "width", "]"}]}], ",", "12", ",",
+                     "Bold"}], "]"}]}]}], "]"}]}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    RowBox[{
+                    "Generate", " ", "graphs", " ", "for", " ", "widths", " ",
+                     "3"}], "-", "8"}], "*)"}], 
+                   RowBox[{"graphs", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"stateTransitionGraph", "[", 
+                    RowBox[{"width", ",", "ruleNumber"}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"width", ",", "3", ",", "8"}], "}"}]}], "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    "Arrange", " ", "in", " ", "a", " ", "2", "x3", " ", 
+                    "grid"}], "*)"}], 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"graphs", ",", "3"}], "]"}], ",", 
+                    RowBox[{"Spacings", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"20", ",", "20"}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "All"}], ",", 
+                    RowBox[{"FrameStyle", "->", "LightGray"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"\"\<Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}], 
+                    "<>", "\"\< State Transition Diagrams\>\""}], ",", "16", ",",
+                     "Bold"}], "]"}]}], ",", 
+                    RowBox[{"ImageSize", "->", "Large"}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding State Transition Diagrams\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<State transition diagrams provide a complete map \
+of the cellular automaton's behavior in finite systems, showing every \
+possible configuration and how it evolves. Each node represents a unique \
+binary configuration of the grid (with periodic boundaries), and directed \
+edges show which state follows which under one application of the rule.\\n\\n\
+\>\"", ",", "\"\<Reading the Graphs: In these directed graphs, nodes are \
+numbered 0 to 2^n-1, representing all possible binary strings of length n. An \
+arrow from node A to node B means configuration A evolves to configuration B \
+in one time step. Loops (cycles) indicate repeating patterns - attractors the \
+system settles into. Trees branching into loops show transient states that \
+eventually reach attractors but aren't part of the cycle \
+themselves.\\n\\n\>\"", 
+                 ",", "\"\<Manual Construction: To construct a state \
+transition diagram by hand: (1) Choose a grid width (e.g., 3 cells). (2) List \
+all possible states (for 3 cells: 000, 001, 010, 011, 100, 101, 110, 111). \
+(3) For each state, apply the CA rule with periodic boundaries - each cell \
+updates based on itself and its left/right neighbors using the rule's lookup \
+table. (4) Draw an arrow from each current state to its successor. (5) \
+Arrange nodes so cycles and branches are visually clear.\\n\\n\>\"", 
+                 ",", "\"\<Attractor Topology: The graph structure \
+immediately reveals the rule's attractor landscape. Fixed points appear as \
+self-loops (nodes with arrows to themselves). Periodic orbits appear as \
+polygons - triangles for period-3, squares for period-4, etc. Complex rules \
+show intricate branching structures with multiple separate attractor basins, \
+while simple rules often collapse to one or two fixed points.\\n\\n\>\"", 
+                 ",", "\"\<Transient vs. Recurrent States: States on cycles \
+are recurrent - the system returns to them infinitely often. States not on \
+cycles are transient - visited at most once before reaching an attractor. The \
+ratio of transient to recurrent states indicates how much 'memory' the rule \
+has about initial conditions versus how quickly it forgets and settles into \
+repetitive behavior.\\n\\n\>\"", 
+                 ",", "\"\<Reversibility Detection: A reversible rule has \
+every node with exactly one incoming edge - each state has exactly one \
+predecessor. This creates a graph of pure cycles with no trees. \
+Non-reversible rules have states with multiple predecessors (many-to-one \
+mapping) and states with no predecessors (Garden of Eden configurations). The \
+visual topology immediately reveals reversibility.\\n\\n\>\"", 
+                 ",", "\"\<Scale Dependence: As width increases from 3 to 8 \
+cells, watch how complexity grows. Some rules maintain similar simple \
+structures at all scales (suggesting regular, predictable behavior), while \
+others explode into intricate webs of long cycles and complex branching \
+(indicating chaotic or computationally complex dynamics). The scaling \
+behavior is diagnostic of rule class.\\n\\n\>\"", 
+                 ",", "\"\<Connectivity and Components: The number of \
+disconnected components (separate subgraphs) reveals how many independent \
+attractor basins exist. A single component means all initial conditions \
+eventually interact or merge into one attractor system. Multiple components \
+indicate the rule partitions state space into isolated dynamical subsystems \
+that never influence each other.\\n\\n\>\"", 
+                 ",", "\"\<Cycle Lengths and Periods: The perimeter of each \
+polygon gives the cycle length. Count the nodes in a loop to determine the \
+period. The longest cycle in the graph is the maximum repetition period for \
+that system size. Comparing maximum cycle lengths across different widths \
+reveals how the rule's temporal complexity scales with spatial \
+size.\\n\\n\>\"", 
+                 ",", "\"\<Symmetry and Structure: Look for symmetries in the \
+graph layout - they often reflect symmetries in the rule itself (left-right \
+symmetry, complement symmetry, etc.). Highly regular, symmetric graphs \
+suggest simple, structured rules. Asymmetric, irregular graphs indicate \
+complex, less predictable behavior.\\n\\n\>\"", 
+                 ",", "\"\<Information Flow: The direction of arrows shows \
+information flow through state space. Rules with all short paths to \
+attractors rapidly lose information about initial conditions. Rules with long \
+transient chains preserve initial condition information longer before \
+settling into repetitive behavior.\\n\\n\>\"", 
+                 ",", "\"\<Research Applications: Use state transition \
+diagrams to classify rules by attractor topology, identify reversible rules \
+visually, count Garden of Eden states, measure basin sizes for different \
+attractors, validate theoretical predictions about finite CA behavior, and \
+understand the complete finite-state dynamics that infinite systems \
+approximate.\>\""}], "}"}], "]"}], ",", "\"\<Text\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Maximum Cycle Length Analysis\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"maxWidth", "=", "10"}], ",", "findMaxCycle", ",",
+                     "results", ",", "theoreticalMax"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"findMaxCycle", "[", "width_", "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"n", "=", 
+                    RowBox[{"2", "^", "width"}]}], ",", "visited", ",", 
+                    RowBox[{"maxLen", "=", "1"}]}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"visited", "=", 
+                    RowBox[{"ConstantArray", "[", 
+                    RowBox[{"False", ",", "n"}], "]"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"Do", "[", 
+                    RowBox[{
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"!", 
+                    RowBox[{"visited", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"state", "+", "1"}], "]"}], "]"}]}], ",", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"current", "=", "state"}], ",", 
+                    RowBox[{"path", "=", 
+                    RowBox[{"{", "}"}]}], ",", "cycleLen"}], "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{"!", 
+                    RowBox[{"visited", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"current", "+", "1"}], "]"}], "]"}]}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"visited", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"current", "+", "1"}], "]"}], "]"}], "=", 
+                    "True"}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"path", ",", "current"}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"current", "=", 
+                    RowBox[{"FromDigits", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", 
+                    RowBox[{"IntegerDigits", "[", 
+                    RowBox[{"current", ",", "2", ",", "width"}], "]"}], ",", 
+                    "1"}], "]"}], "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "2"}], "]"}]}], 
+                    ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"MemberQ", "[", 
+                    RowBox[{"path", ",", "current"}], "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"cycleLen", "=", 
+                    RowBox[{
+                    RowBox[{"Length", "[", "path", "]"}], "-", 
+                    RowBox[{
+                    RowBox[{"Position", "[", 
+                    RowBox[{"path", ",", "current"}], "]"}], "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}], "+", "1"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"maxLen", "=", 
+                    RowBox[{"Max", "[", 
+                    RowBox[{"maxLen", ",", "cycleLen"}], "]"}]}], ";"}]}], 
+                    "]"}], ";"}]}], "]"}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"state", ",", "0", ",", 
+                    RowBox[{"n", "-", "1"}]}], "}"}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", "maxLen"}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"results", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"w", ",", 
+                    RowBox[{"findMaxCycle", "[", "w", "]"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"w", ",", "3", ",", "maxWidth"}], "}"}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                   RowBox[{"theoreticalMax", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"w", ",", 
+                    RowBox[{"2", "^", "w"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"w", ",", "3", ",", "maxWidth"}], "}"}]}], 
+                    "]"}]}], ";", "\[IndentingNewLine]", 
+                   RowBox[{"ListLogPlot", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"theoreticalMax", ",", "results"}], "}"}], ",", 
+                    RowBox[{"Joined", "->", "True"}], ",", 
+                    RowBox[{"PlotStyle", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Directive", "[", 
+                    RowBox[{"Gray", ",", "Dashed", ",", "Thick"}], "]"}], ",", 
+                    RowBox[{"Directive", "[", 
+                    RowBox[{"Red", ",", "Thick"}], "]"}]}], "}"}]}], ",", 
+                    RowBox[{"PlotMarkers", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"None", ",", "Automatic"}], "}"}]}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Maximum Cycle Length - Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}]}]}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<Width (n)\>\"", 
+                    ",", "\"\<Max Cycle Length\>\""}], "}"}]}], ",", 
+                    RowBox[{"PlotLegends", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Theoretical Maximum (2^n)\>\"", ",", 
+                    RowBox[{"\"\<Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}]}]}], "}"}]}],
+                     ",", 
+                    RowBox[{"GridLines", "->", "Automatic"}], ",", 
+                    RowBox[{"ImageSize", "->", "600"}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Cycle Length and Finite Size \
+Properties\>\"", ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<Finite size analysis reveals the rule's \
+fundamental mathematical structure by examining complete state spaces in \
+small systems. Since every finite CA must eventually return to a previously \
+visited state, all trajectories lead to attractors - either fixed points \
+(cycle length 1) or periodic cycles. The maximum cycle length provides a \
+measure of the rule's dynamical complexity and computational depth in finite \
+systems.\\n\\n\>\"", 
+                 ",", "\"\<State Transition Structure: The directed graphs \
+show every possible state and its successor, revealing the rule's complete \
+attractor structure. Cycles appear as polygons (closed loops), while \
+transient states form trees leading to attractors. This topology reveals \
+whether the rule has simple fixed points, complex cycles, or chaotic \
+attractors in finite systems.\\n\\n\>\"", 
+                 ",", "\"\<Theoretical Maximum and Complexity Bounds: In a \
+system with n cells, there are exactly 2^n possible configurations, providing \
+an absolute upper bound on cycle length. Rules approaching this maximum \
+exhibit highly complex, pseudo-chaotic behavior where the system takes \
+exponentially long to repeat. The ratio of actual maximum cycle to \
+theoretical maximum quantifies the rule's effective state space \
+utilization.\\n\\n\>\"", 
+                 ",", "\"\<Exponential vs Polynomial Growth: Different rule \
+classes show characteristic scaling behaviors. Class I rules typically \
+maintain cycle length 1 across all system sizes. Class II rules often show \
+small constant or slowly growing cycle lengths. Class III rules may show \
+exponential growth approaching theoretical limits, while Class IV rules can \
+exhibit intermediate polynomial growth patterns.\\n\\n\>\"", 
+                 ",", "\"\<Reversibility and Cycle Structure: Reversible \
+cellular automata have special properties - every state has exactly one \
+predecessor, so the state space forms disjoint cycles with no transient \
+trees. The cycle length distribution partitions the entire state space into \
+periodic orbits.\\n\\n\>\"", 
+                 ",", "\"\<Garden of Eden States: States with no predecessors \
+are Garden of Eden configurations. Rules with maximum cycle equal to 2^n have \
+no Garden of Eden states and are necessarily surjective.\\n\\n\>\"", 
+                 ",", "\"\<Information Theory: Long cycle lengths correspond \
+to high entropy production. The system must remember extensive information \
+about its initial state to know when to return to it, connecting to \
+Kolmogorov-Sinai entropy.\\n\\n\>\"", 
+                 ",", "\"\<Practical Applications: For cryptography, rules \
+with exponentially growing cycles are desirable. For modeling periodic \
+phenomena, rules with predictable small cycles are useful. For random number \
+generation, rules with maximal cycles provide good pseudo-randomness with \
+known periodicity.\>\""}], "}"}], "]"}], ",", "\"\<Text\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Backtracking Trees\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<This shows the tree of all possible predecessor \
+configurations that can produce a given target pattern, revealing the rule's \
+preimage structure:\>\"", ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"depth", "=", "5"}], ",", 
+                    RowBox[{"width", "=", "11"}], ",", "target", ",", 
+                    "backtrackTree", ",", "visualizeTree"}], "}"}], ",", 
+                  RowBox[{"(*", 
+                   RowBox[{
+                   "Generate", " ", "a", " ", "single", " ", "centered", " ", 
+                    "cell", " ", "as", " ", "target"}], "*)"}], 
+                  RowBox[{
+                   RowBox[{"target", "=", 
+                    RowBox[{"UnitVector", "[", 
+                    RowBox[{"width", ",", 
+                    RowBox[{"Ceiling", "[", 
+                    RowBox[{"width", "/", "2"}], "]"}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    "Backtrack", " ", "to", " ", "find", " ", "all", " ", 
+                    "possible", " ", "predecessors"}], "*)"}], 
+                   RowBox[{
+                    RowBox[{"backtrackTree", "[", 
+                    RowBox[{"config_", ",", "0"}], "]"}], ":=", "config"}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"backtrackTree", "[", 
+                    RowBox[{"config_", ",", "d_"}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "predecessors", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"predecessors", "=", 
+                    RowBox[{"Select", "[", 
+                    RowBox[{
+                    RowBox[{"Tuples", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "width"}], "]"}], ",", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "#", ",", "1"}], "]"}], "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "==", "config"}], "&"}]}],
+                     "]"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"If", "[", 
+                    RowBox[{
+                    RowBox[{"predecessors", "===", 
+                    RowBox[{"{", "}"}]}], ",", 
+                    RowBox[{"{", "}"}], ",", 
+                    RowBox[{"Map", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"backtrackTree", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"d", "-", "1"}]}], "]"}], "&"}], ",", 
+                    "predecessors"}], "]"}]}], "]"}]}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{"Generate", " ", "tree"}], "*)"}], 
+                   RowBox[{"tree", "=", 
+                    RowBox[{"backtrackTree", "[", 
+                    RowBox[{"target", ",", "depth"}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    "Visualize", " ", "as", " ", "nested", " ", "list", " ", 
+                    "structure"}], "*)"}], 
+                   RowBox[{
+                    RowBox[{"visualizeTree", "[", 
+                    RowBox[{"config_List", "/;", 
+                    RowBox[{"VectorQ", "[", 
+                    RowBox[{"config", ",", "NumericQ"}], "]"}]}], "]"}], ":=", 
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{
+                    RowBox[{"{", "config", "}"}], ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "White"}], ",", 
+                    RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"ImageSize", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"200", ",", "20"}], "}"}]}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"visualizeTree", "[", "branches_List", "]"}], ":=", 
+                    RowBox[{"OpenerView", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"ArrayPlot", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"RandomChoice", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "width"}], "]"}], 
+                    "}"}], ",", 
+                    RowBox[{"ColorRules", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"0", "->", "White"}], ",", 
+                    RowBox[{"1", "->", "Black"}]}], "}"}]}], ",", 
+                    RowBox[{"Frame", "->", "False"}], ",", 
+                    RowBox[{"ImageSize", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"200", ",", "20"}], "}"}]}]}], "]"}], ",", 
+                    RowBox[{"Column", "[", 
+                    RowBox[{"Map", "[", 
+                    RowBox[{"visualizeTree", ",", "branches"}], "]"}], 
+                    "]"}]}], "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
+                   RowBox[{"Panel", "[", 
+                    RowBox[{
+                    RowBox[{"visualizeTree", "[", "tree", "]"}], ",", 
+                    RowBox[{"Background", "->", "LightGray"}]}], "]"}]}]}], 
+                 "]"}], "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"w", "=", "4"}], ",", "configs", ",", "results"}],
+                    "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"configs", "=", 
+                    RowBox[{"Tuples", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", "w"}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"(*", 
+                    RowBox[{
+                    RowBox[{"For", " ", "each", " ", "config"}], ",", 
+                    RowBox[{"count", " ", "its", " ", "predecessors"}]}], 
+                    "*)"}], 
+                   RowBox[{"results", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"target", ",", 
+                    RowBox[{"Count", "[", 
+                    RowBox[{"configs", ",", 
+                    RowBox[{"pred_", "/;", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", "pred", ",", "1"}], "]"}], "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "==", "target"}]}]}], 
+                    "]"}]}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"target", ",", "configs"}], "}"}]}], "]"}]}], ";",
+                    "\[IndentingNewLine]", 
+                   RowBox[{"Column", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Style", "[", 
+                    
+                    RowBox[{"\"\<Predecessor counts for each configuration:\>\
+\"", ",", "Bold"}], "]"}], ",", 
+                    RowBox[{"Grid", "[", 
+                    RowBox[{
+                    RowBox[{"Prepend", "[", 
+                    RowBox[{
+                    RowBox[{"Map", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Row", "[", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", "\"\<\>\""}], "]"}], 
+                    ",", 
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "}"}], "&"}], ",", 
+                    "results"}], "]"}], ",", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<Configuration\>\"", 
+                    ",", "\"\<# Predecessors\>\""}], "}"}]}], "]"}], ",", 
+                    RowBox[{"Frame", "->", "All"}], ",", 
+                    RowBox[{"Background", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"None", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"LightGray", ",", "White"}], "}"}]}], "}"}]}]}], 
+                    "]"}], ",", 
+                    RowBox[{"Spacer", "[", "5", "]"}], ",", 
+                    RowBox[{"Histogram", "[", 
+                    RowBox[{
+                    RowBox[{"results", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"All", ",", "2"}], "]"}], "]"}], ",", 
+                    RowBox[{"PlotLabel", "->", "\"\<Distribution\>\""}], ",", 
+                    
+                    RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], "}"}], 
+                    "]"}]}]}], "]"}], "]"}], "]"}], ",", "\"\<Input\>\""}], 
+             "]"}], ",", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding Backtracking Trees\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<Backtracking trees reveal the inverse dynamics \
+of cellular automata by showing all possible configurations that could have \
+produced a given target pattern. Unlike forward evolution which is \
+deterministic (one input produces one output), backward evolution is \
+typically non-deterministic - multiple different predecessors can produce the \
+same successor configuration.\\n\\n\>\"", 
+                 ",", "\"\<Reading the Tree Structure: The root node (top or \
+center) shows the target configuration you're working backward from. Each \
+branch downward represents one time step backward in evolution. At each \
+level, nodes show all possible predecessor configurations. The branching \
+factor indicates how many different ways that configuration could have been \
+produced. Dead ends (leaves) occur when no valid predecessors \
+exist.\\n\\n\>\"", 
+                 ",", "\"\<Surjectivity and Preimage Structure: The tree \
+immediately reveals whether the rule is surjective (onto). If every possible \
+configuration appears somewhere in the tree when run long enough, the rule is \
+surjective - all configurations are reachable. Configurations that never \
+appear are Garden of Eden states - they have no predecessors and can only \
+exist as initial conditions, never arising from evolution.\\n\\n\>\"", 
+                 ",", "\"\<Reversibility Detection: A reversible rule \
+produces trees where every node has exactly one child at each level - no \
+branching, just a single path backward. This one-to-one correspondence \
+between successors and predecessors defines reversibility. Non-reversible \
+rules show branching (many-to-one mapping) or dead ends (states with no \
+predecessors).\\n\\n\>\"", 
+                 ",", "\"\<Expansion vs. Contraction: Watch how the tree \
+grows or shrinks with depth. Expanding trees (branching factor > 1) indicate \
+many configurations map to few - information is being compressed in forward \
+evolution. Contracting trees suggest divergent forward dynamics. Balanced \
+trees indicate conservation of information. The average branching factor \
+quantifies this expansion/contraction rate.\\n\\n\>\"", 
+                 ",", "\"\<Computational Complexity: The tree's size and \
+structure reveal computational properties. Exponentially growing trees \
+indicate the rule is computationally complex backward - finding predecessors \
+is hard even if forward evolution is simple. Small, finite trees suggest \
+limited backward complexity. The tree's depth and breadth relate to the \
+rule's descriptive complexity.\\n\\n\>\"", 
+                 ",", "\"\<Pattern Propagation Backward: The tree shows how \
+localized patterns in the target decompose into potentially more complex \
+predecessor patterns. Some rules maintain locality (local patterns have local \
+predecessors), while others show that simple local patterns require complex \
+non-local predecessor arrangements. This reveals the rule's information \
+structure.\\n\\n\>\"", 
+                 ",", "\"\<Symmetry and Structure: Look for symmetries in the \
+tree - they reflect symmetries in the rule itself. Symmetric trees suggest \
+the rule treats space uniformly. Asymmetric trees may indicate directional \
+bias or broken symmetries. Regular, repetitive tree structure indicates \
+predictable preimage patterns.\\n\\n\>\"", 
+                 ",", "\"\<Multiple Paths to Same Configuration: If the same \
+configuration appears at multiple positions in the tree at the same depth, it \
+means there are multiple distinct ways to evolve backward to reach that \
+configuration - multiple evolutionary paths converge to the same target. This \
+is diagnostic of information loss in forward evolution.\\n\\n\>\"", 
+                 ",", "\"\<Depth and Reachability: The maximum depth before \
+the tree terminates (no more valid predecessors exist) indicates how far back \
+you can trace the evolutionary history. Infinite depth suggests all \
+configurations can eventually reach the target through some evolutionary \
+path. Finite depth indicates the target is only reachable from a limited set \
+of initial configurations.\\n\\n\>\"", 
+                 ",", "\"\<Garden of Eden Identification: Configurations that \
+appear as leaves in deep backtracking trees but never as interior nodes are \
+likely Garden of Eden states - they can serve as predecessors but themselves \
+have no predecessors. Systematically exploring these trees can enumerate all \
+Garden of Eden states for small system sizes.\\n\\n\>\"", 
+                 ",", "\"\<Information Theory Connection: The branching \
+structure directly relates to information entropy. High branching means \
+forward evolution destroys information (many inputs map to one output). No \
+branching (reversible) means perfect information preservation. The entropy \
+difference between levels quantifies information loss rate.\\n\\n\>\"", 
+                 ",", "\"\<Comparison Across Rules: Different rule classes \
+show characteristic tree structures. Class I rules often have highly \
+contracting trees (most configurations quickly lead to uniform states). Class \
+II rules show regular, periodic tree structures. Class III rules may have \
+complex, irregular trees. Class IV rules often show intricate, varied \
+branching patterns.\\n\\n\>\"", 
+                 ",", "\"\<Research Applications: Use backtracking trees to \
+classify rules by preimage structure, identify Garden of Eden states, measure \
+surjectivity, detect reversibility, quantify information loss in forward \
+evolution, understand pattern formation constraints, and study the inverse \
+problem of cellular automaton dynamics.\>\""}], "}"}], "]"}], 
+              ",", "\"\<Text\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<State Space as Cantor Set\>\"", 
+              ",", "\"\<Section\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<The CA rule as a continuous mapping on [0,1]. Each \
+point represents a binary configuration normalized to the unit interval:\>\"",
+               ",", "\"\<Text\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Cantor Set Mapping\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", "plots", "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"plots", "=", 
+                    RowBox[{"Table", "[", 
+                    RowBox[{
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"inputs", ",", "outputs", ",", "points"}], "}"}], 
+                    ",", 
+                    RowBox[{
+                    RowBox[{"inputs", "=", 
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"2", "^", "n"}], "-", "1"}]}], "]"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"(*", 
+                    RowBox[{"Vectorized", " ", "for", " ", "speed"}], "*)"}], 
+                    
+                    RowBox[{"outputs", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"FromDigits", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", 
+                    RowBox[{"IntegerDigits", "[", 
+                    RowBox[{"#", ",", "2", ",", "n"}], "]"}], ",", "1"}], 
+                    "]"}], "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "2"}], "]"}], "&"}], 
+                    "/@", "inputs"}]}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"points", "=", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"inputs", "/", 
+                    RowBox[{"2.0", "^", "n"}]}], ",", 
+                    RowBox[{"outputs", "/", 
+                    RowBox[{"2.0", "^", "n"}]}]}], "}"}], "]"}]}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"ListPlot", "[", 
+                    RowBox[{"points", ",", 
+                    RowBox[{"AspectRatio", "->", "1"}], ",", 
+                    RowBox[{"PlotRange", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+                    RowBox[{"PlotStyle", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"Black", ",", 
+                    RowBox[{"PointSize", "[", "0.003", "]"}]}], "}"}]}], ",", 
+                    
+                    RowBox[{"Frame", "->", "True"}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<x\>\"", ",", "\"\<f(x)\>\""}], "}"}]}], ",", 
+                    
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<n=\>\"", "<>", 
+                    RowBox[{"ToString", "[", "n", "]"}]}]}], ",", 
+                    RowBox[{"ImageSize", "->", "220"}], ",", 
+                    RowBox[{"GridLines", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", "1", ",", "0.25"}], "]"}], ",", 
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", "1", ",", "0.25"}], "]"}]}], "}"}]}]}], 
+                    "]"}]}]}], "]"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"n", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"6", ",", "8", ",", "10", ",", "12"}], "}"}]}], 
+                    "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+                   RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"Partition", "[", 
+                    RowBox[{"plots", ",", "2"}], "]"}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"\"\<Cantor Mapping - Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}]}], ",", 
+                    "Bold"}], "]"}]}], ",", 
+                    RowBox[{"ImageSize", "->", "600"}]}], "]"}]}]}], "]"}], 
+                "]"}], "]"}], ",", "\"\<Input\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<High Resolution View\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"BoxData", "[", 
+               RowBox[{"ToBoxes", "[", 
+                RowBox[{"Module", "[", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"n", "=", "13"}], ",", "inputs", ",", "outputs", ",",
+                     "points"}], "}"}], ",", 
+                  RowBox[{
+                   RowBox[{"inputs", "=", 
+                    RowBox[{"Range", "[", 
+                    RowBox[{"0", ",", 
+                    RowBox[{
+                    RowBox[{"2", "^", "n"}], "-", "1"}]}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"outputs", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"FromDigits", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"CellularAutomaton", "[", 
+                    RowBox[{"ruleNumber", ",", 
+                    RowBox[{"IntegerDigits", "[", 
+                    RowBox[{"#", ",", "2", ",", "n"}], "]"}], ",", "1"}], 
+                    "]"}], "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "2"}], "]"}], "&"}], 
+                    "/@", "inputs"}]}], ";", "\[IndentingNewLine]", 
+                   RowBox[{"points", "=", 
+                    RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"inputs", "/", 
+                    RowBox[{"2.0", "^", "n"}]}], ",", 
+                    RowBox[{"outputs", "/", 
+                    RowBox[{"2.0", "^", "n"}]}]}], "}"}], "]"}]}], ";", 
+                   "\[IndentingNewLine]", 
+                   RowBox[{"ListPlot", "[", 
+                    RowBox[{"points", ",", 
+                    RowBox[{"AspectRatio", "->", "1"}], ",", 
+                    RowBox[{"PlotRange", "->", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+                    RowBox[{"PlotStyle", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"Black", ",", 
+                    RowBox[{"PointSize", "[", "0.001", "]"}]}], "}"}]}], ",", 
+                    
+                    RowBox[{"Frame", "->", "True"}], ",", 
+                    RowBox[{"FrameLabel", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Input x\>\"", ",", "\"\<Output f(x)\>\""}], 
+                    "}"}]}], ",", 
+                    RowBox[{"PlotLabel", "->", 
+                    RowBox[{"\"\<Rule \>\"", "<>", 
+                    RowBox[{"ToString", "[", "ruleNumber", "]"}], 
+                    "<>", "\"\< (2^13 = \>\"", "<>", 
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"2", "^", "n"}], "]"}], 
+                    "<>", "\"\< points)\>\""}]}], ",", 
+                    RowBox[{"ImageSize", "->", "600"}], ",", 
+                    RowBox[{"GridLines", "->", "Automatic"}], ",", 
+                    RowBox[{"GridLinesStyle", "->", "LightGray"}]}], 
+                    "]"}]}]}], "]"}], "]"}], "]"}], ",", "\"\<Input\>\""}], 
+             "]"}], ",", 
+            RowBox[{"Cell", "[", 
+             
+             RowBox[{"\"\<Understanding the Cantor Set Representation\>\"", 
+              ",", "\"\<Subsection\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+            
+            RowBox[{"Cell", "[", 
+             RowBox[{
+              RowBox[{"TextData", "[", 
+               RowBox[{"{", 
+                
+                RowBox[{"\"\<The Cantor set visualization reveals one of the \
+most profound connections between cellular automata and pure mathematics, \
+showing how discrete, local rules generate continuous dynamical systems with \
+rich topological structure. This representation transforms our understanding \
+of CAs from computational objects to mathematical functions with deep \
+geometric properties:\\n\\n\>\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Mathematical Foundation and \
+Construction: Each configuration of n cells can be uniquely encoded as a \
+binary number between 0 and 2^n-1. Dividing by 2^n maps this integer to a \
+point in [0,1]. For example, with n=3, the configuration 101 becomes 5/8 = \
+0.625. The CA rule then defines a function f:[0,1]\[RightArrow][0,1] where f \
+maps each normalized configuration to its successor. As n\[RightArrow]\
+\[Infinity], the domain converges to a Cantor set - a perfect, nowhere dense, \
+uncountable fractal subset of [0,1] with total length zero but cardinality 2^\
+\[Aleph]\:2080.\\n\\n\>\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Continuity from Locality: The CA \
+rule's locality (each cell depends only on its neighborhood) directly implies \
+the function's continuity. Configurations differing by a single bit in \
+position i differ by approximately 1/2^i in the normalized representation. \
+Since the rule's output at any position depends only on nearby bits, small \
+changes in input produce small changes in output. This topological property \
+connects discrete computation to continuous dynamics.\\n\\n\>\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Fractal Self-Similarity and \
+Scaling: The self-similar patterns visible in the plot reflect the rule's \
+shift-invariance and local nature. When you zoom into any region, you see \
+similar structures at finer scales. This isn't just visual aesthetics - it's \
+a fundamental property of the mapping. The fractal dimension of the graph can \
+characterize the rule's complexity, with simple rules producing \
+low-dimensional graphs and complex rules generating space-filling or \
+high-dimensional structures.\\n\\n\>\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Fixed Points and Diagonal \
+Structure: Points on the diagonal y=x represent configurations that don't \
+change under one application of the rule - fixed points in the dynamical \
+system. Periodic orbits appear as discrete sets of points that cycle through \
+each other. The distance from the diagonal indicates how dramatically the \
+rule transforms each configuration. Rules hugging the diagonal are nearly \
+identity functions, while those with large deviations show strong \
+transformative behavior.\\n\\n\>\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Surjectivity and Image \
+Structure: A surjective (onto) rule produces a graph that covers the full \
+unit square, meaning every configuration is reachable from some predecessor. \
+Gaps in the vertical direction reveal non-surjectivity - certain \
+configurations (Garden of Eden states) have no predecessors. The distribution \
+of these gaps provides deep information about the rule's \
+information-theoretic properties and entropy production.\\n\\nSymbolic \
+Dynamics Connection: This representation directly connects CAs to symbolic \
+dynamics, a branch of dynamical systems theory studying shift spaces. The \
+shift map (moving a configuration one position) becomes conjugate to a \
+topological operation on the Cantor set. Properties like mixing, minimality, \
+and topological entropy have precise meanings in this framework, allowing \
+rigorous analysis of CA behavior using powerful mathematical tools.\\n\\n\>\"",
+                  ",", "\[IndentingNewLine]", "\"\<Chaos and Sensitivity: In \
+this representation, chaotic behavior manifests as sensitive dependence on \
+initial conditions - nearby input points can map to distant output points. \
+The Lyapunov exponent, measuring exponential separation of trajectories, can \
+be visualized through the local slope of the mapping. Class III rules \
+typically show highly irregular, space-filling graphs indicating chaotic \
+dynamics, while Class I rules produce simple, structured graphs.\\n\\n\>\"", ",",
+                  "\[IndentingNewLine]", "\"\<Measure Theory and Invariant \
+Measures: For many CA rules, there exists an invariant measure on the Cantor \
+set - a probability distribution preserved by the rule's action. The density \
+of points in different regions of the plot hints at this measure. Rules \
+preserving Bernoulli measure (uniform density) appear as evenly distributed \
+points, while those with non-trivial invariant measures show clustering in \
+specific regions. This connects to ergodic theory and statistical \
+mechanics.\\n\\n\>\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Reversibility and Bijection: \
+Reversible CA rules produce bijective (one-to-one and onto) functions on the \
+Cantor set. In the plot, this appears as a graph where each horizontal line \
+intersects exactly once - every output has exactly one input. The graph of a \
+reversible rule has special symmetry properties and preserves measure, making \
+it a measure-preserving transformation of fundamental importance in ergodic \
+theory.\\n\\n\>\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Computational Complexity from \
+Geometry: The geometric complexity of the Cantor set graph correlates with \
+computational complexity. Simple rules produce smooth or piecewise-linear \
+graphs, while computationally universal rules (like Rule 110) generate graphs \
+with infinite complexity at all scales. The algorithmic information content \
+of the graph's description relates to the rule's computational power.\\n\\n\>\
+\"", ",", 
+                 "\[IndentingNewLine]", "\"\<Research Applications: Use the \
+Cantor set representation to rigorously classify rules by topological \
+properties, compute invariant measures and entropy rates, identify reversible \
+rules through graph symmetry, study bifurcations and phase transitions, \
+connect CA theory to broader dynamical systems theory, and visualize abstract \
+properties like mixing and minimality.\>\""}], "}"}], "]"}], 
+              ",", "\"\<Text\>\""}], "]"}]}], "\[IndentingNewLine]", 
+           "\[IndentingNewLine]", "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        
+        RowBox[{"SetOptions", "[", 
+         RowBox[{"nb", ",", 
+          RowBox[{"WindowTitle", "->", 
+           RowBox[{"\"\<Cellular Automaton Rule \>\"", "<>", 
+            RowBox[{"ToString", "[", "ruleNumber", "]"}]}]}], ",", 
+          RowBox[{"WindowSize", "->", 
+           RowBox[{"{", 
+            RowBox[{"800", ",", "900"}], "}"}]}]}], "]"}], ";", 
+        "\[IndentingNewLine]", "nb"}]}], "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.968016270542637*^9, 3.968016295878886*^9}, {
+   3.968016633458786*^9, 3.96801682891636*^9}, {3.9680169458135757`*^9, 
+   3.9680169481777067`*^9}, {3.9680170998969517`*^9, 3.968017108931588*^9}, {
+   3.968017149905826*^9, 3.968017175858693*^9}, {3.968017216078257*^9, 
+   3.968017243977841*^9}, 3.968017285654016*^9, {3.9680174908339252`*^9, 
+   3.968017500795828*^9}, {3.968017560143944*^9, 3.968017570725678*^9}, {
+   3.9680187782851343`*^9, 3.968018839066704*^9}, 3.9680188934630613`*^9, {
+   3.968018968058816*^9, 3.9680189826500673`*^9}, 3.968019047181074*^9, 
+   3.968022569333877*^9, {3.968022660262349*^9, 3.968022663515819*^9}, {
+   3.968103991687736*^9, 3.9681040091964293`*^9}, {3.9681042096525383`*^9, 
+   3.968104258496478*^9}, {3.968142549865877*^9, 3.96814255743064*^9}, {
+   3.968143148309947*^9, 3.968143152417905*^9}, 3.968143222443626*^9, {
+   3.968143252775775*^9, 3.968143255403389*^9}, {3.968143293158546*^9, 
+   3.9681434145433817`*^9}, 3.968143501632148*^9, {3.9681460013680363`*^9, 
+   3.968146009978343*^9}, {3.968151239504633*^9, 3.9681512569324217`*^9}, {
+   3.968151431192815*^9, 3.968151449344542*^9}, {3.968151690035503*^9, 
+   3.968151696962377*^9}, {3.9681520379543467`*^9, 3.9681520388511133`*^9}, {
+   3.9681806960152597`*^9, 3.968180697025144*^9}, {3.968180763452681*^9, 
+   3.9681808122605762`*^9}, {3.9681808917133083`*^9, 3.9681809021298532`*^9}},
+ 
+ CellLabel->
+  "In[540]:=",ExpressionUUID->"d608460e-a223-41b5-bdda-c0f638edbc99"],
+
+Cell[BoxData[
+ DynamicModuleBox[{$CellContext`selectedRule$$ = 
+  30, $CellContext`generateNotebook$$ = 
+  False, $CellContext`notebookGenerated$$ = True}, 
+  TagBox[GridBox[{
+     {
+      StyleBox["\<\"Cellular Automaton Notebook Generator\"\>", "Title",
+       StripOnInput->False]},
+     {
+      TemplateBox[{
+        StyleBox[
+        "\"Select Rule Number (0-255): \"", "Text", StripOnInput -> False], 
+        InputFieldBox[
+         Dynamic[$CellContext`selectedRule$$], Number, FieldSize -> 5], 
+        ButtonBox[
+        "\"Generate Custom Notebook\"", 
+         ButtonFunction :> ($CellContext`generateNotebook$$ = 
+           True; $CellContext`notebookGenerated$$ = True), Background -> 
+         RGBColor[0.87, 0.94, 1], Appearance -> Automatic, Evaluator -> 
+         Automatic, Method -> "Preemptive"]},
+       "RowDefault"]},
+     {
+      TemplateBox[{10},
+       "Spacer1"]},
+     {
+      DynamicBox[ToBoxes[
+        If[
+         And[$CellContext`selectedRule$$ >= 0, $CellContext`selectedRule$$ <= 
+          255], 
+         Column[{
+           Style[
+           "Rule " <> ToString[$CellContext`selectedRule$$] <> " Preview:", 
+            "Subsubsection"], 
+           Grid[{{"111", "110", "101", "100", "011", "010", "001", "000"}, 
+             IntegerDigits[$CellContext`selectedRule$$, 2, 8]}, Frame -> All, 
+            Background -> {{LightGray, White}}], 
+           Spacer[5], 
+           ArrayPlot[
+            
+            CellularAutomaton[$CellContext`selectedRule$$, {{1}, 0}, {50, 
+             50}], ColorRules -> {0 -> White, 1 -> Black}, Frame -> False, 
+            ImageSize -> 400]}], 
+         Style["Please enter a valid rule number (0-255)", "Text", Red]], 
+        StandardForm],
+       ImageSizeCache->{400., {237.39683320312503`, 243.12876679687503`}}]},
+     {
+      TemplateBox[{10},
+       "Spacer1"]},
+     {
+      DynamicBox[ToBoxes[
+        If[
+         And[$CellContext`generateNotebook$$, \
+$CellContext`notebookGenerated$$], \
+$CellContext`generateCANotebook[$CellContext`selectedRule$$]; \
+$CellContext`generateNotebook$$ = False; Column[{
+            Style[
+            "\[Checkmark] Custom notebook generated for Rule " <> 
+             ToString[$CellContext`selectedRule$$], "Text", Green], 
+            Style[
+            "Check your notebooks list for the new notebook.", "Text"]}], ""],
+         StandardForm],
+       ImageSizeCache->{0., {0., 6.318}}]}
+    },
+    DefaultBaseStyle->"Column",
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Column"],
+  DynamicModuleValues:>{}]], "Output",
+ CellChangeTimes->{3.968016376361931*^9, 3.968016833817953*^9, 
+  3.96801711385365*^9, 3.968017394765764*^9, 3.968017503873499*^9, 
+  3.968017577963715*^9, 3.968018841756925*^9, 3.968018910128537*^9, 
+  3.9680190505666323`*^9, 3.9680206840542927`*^9, 3.9680223176578007`*^9, 
+  3.968022577280238*^9, 3.9681038608920193`*^9, 3.968104031111603*^9, 
+  3.968104260802391*^9, 3.968104558007184*^9, 3.968142497970405*^9, 
+  3.968142609224332*^9, 3.968143163699224*^9, 3.9681434185195637`*^9, 
+  3.968143504552058*^9, 3.968144262683766*^9, 3.968146016141138*^9, 
+  3.968149106465913*^9, 3.9681514562785*^9, 3.96815170295402*^9, 
+  3.968152048137858*^9, 3.9681804977196617`*^9, 3.9681807006412277`*^9, 
+  3.9681808153727627`*^9, 3.968180909253274*^9, 3.968181104438751*^9},
+ CellLabel->
+  "Out[540]=",ExpressionUUID->"8ae03f72-4956-49b6-b432-976f9eeabcd1"],
+
+Cell[BoxData[
+ PanelBox[
+  TagBox[GridBox[{
+     {
+      StyleBox["\<\"Instructions:\"\>", "Subsubsection",
+       StripOnInput->False]},
+     {
+      StyleBox["\<\"1. Select a rule number (0-255) using the input field \
+above\"\>", "Text",
+       StripOnInput->False]},
+     {
+      StyleBox["\<\"2. Click 'Generate Custom Notebook' to create a new \
+notebook\"\>", "Text",
+       StripOnInput->False]},
+     {
+      StyleBox["\<\"3. The new notebook will contain analysis tools specific \
+to that rule\"\>", "Text",
+       StripOnInput->False]},
+     {
+      StyleBox["\<\"4. Use the controls in the generated notebook to explore \
+the rule\"\>", "Text",
+       StripOnInput->False]}
+    },
+    DefaultBaseStyle->"Column",
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Column"],
+  Background->RGBColor[1, 1, 0.85],
+  FrameMargins->15]], "Output",
+ CellChangeTimes->{3.968016376361931*^9, 3.968016833817953*^9, 
+  3.96801711385365*^9, 3.968017394765764*^9, 3.968017503873499*^9, 
+  3.968017577963715*^9, 3.968018841756925*^9, 3.968018910128537*^9, 
+  3.9680190505666323`*^9, 3.9680206840542927`*^9, 3.9680223176578007`*^9, 
+  3.968022577280238*^9, 3.9681038608920193`*^9, 3.968104031111603*^9, 
+  3.968104260802391*^9, 3.968104558007184*^9, 3.968142497970405*^9, 
+  3.968142609224332*^9, 3.968143163699224*^9, 3.9681434185195637`*^9, 
+  3.968143504552058*^9, 3.968144262683766*^9, 3.968146016141138*^9, 
+  3.968149106465913*^9, 3.9681514562785*^9, 3.96815170295402*^9, 
+  3.968152048137858*^9, 3.9681804977196617`*^9, 3.9681807006412277`*^9, 
+  3.9681808153727627`*^9, 3.968180909253274*^9, 3.9681811044577208`*^9},
+ CellLabel->
+  "Out[541]=",ExpressionUUID->"6e8f3123-4913-4382-b2a5-2429709c4011"]
+}, Open  ]]
+},
+WindowSize->{1424, 758},
+WindowMargins->{{8, Automatic}, {Automatic, 8}},
+PrivateNotebookOptions->{"CloudPublishPath"->"/Published/oneD CA Rule \
+Template v1.3.nb"},
+FrontEndVersion->"14.3 for Mac OS X x86 (64-bit) (July 8, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"c2c9a6b9-fd80-439f-9ec7-9b8de2ea1828"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 163953, 3217, 70, "Input",ExpressionUUID->"d608460e-a223-41b5-bdda-c0f638edbc99"],
+Cell[164532, 3241, 3481, 80, 70, "Output",ExpressionUUID->"8ae03f72-4956-49b6-b432-976f9eeabcd1"],
+Cell[168016, 3323, 1781, 41, 70, "Output",ExpressionUUID->"6e8f3123-4913-4382-b2a5-2429709c4011"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
