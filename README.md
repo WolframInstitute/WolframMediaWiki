@@ -13,7 +13,7 @@ Automating the generation of wiki pages for the 256 elementary cellular automata
 ### Current Method
 
 1. Export your Wolfram Notebook to markdown
-2. Convert to wikitext using Pandoc:
+2. Convert to wikitext using Pandoc. If you don't want to install the pandoc binary, replace the `pandoc` binary in this command with `pandoc.sh` to use Docker.
    ```bash
    pandoc input.md -f markdown -t mediawiki -o output.wiki
    ```
@@ -21,7 +21,7 @@ Automating the generation of wiki pages for the 256 elementary cellular automata
 ### Dependencies
 
 - Wolfram Mathematica
-- [Pandoc](https://github.com/jgm/pandoc)
+- [Pandoc](https://github.com/jgm/pandoc) or Docker
 
 ## Roadmap
 

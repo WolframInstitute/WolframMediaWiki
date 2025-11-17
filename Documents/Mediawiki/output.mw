@@ -34,35 +34,19 @@ Binary Rule Table:
 
 Visual Rule Plot:
 
-<div class="figure">
-
-[[File:img/15hv78lidabjj.png|15hv78lidabjj]]
-
-</div>
+[[File:img/15hv78lidabjj.png|thumb|500px]]
 <span id="rule-arrayplot"></span>
 ==== Rule ArrayPlot ====
 
 Canonical ArrayPlot:
 
-<div class="figure">
-
-[[File:img/12r356gxl9cvg.png|12r356gxl9cvg]]
-
-</div>
+[[File:img/12r356gxl9cvg.png|thumb|500px]]
 Random Initial Conditions ArrayPlot:
 
-<div class="figure">
-
-[[File:img/04wi7f5w42k1d.png|04wi7f5w42k1d]]
-
-</div>
+[[File:img/04wi7f5w42k1d.png|thumb|500px]]
 Alternate Step ArrayPlot:
 
-<div class="figure">
-
-[[File:img/0xvf9ssaf4v32.png|0xvf9ssaf4v32]]
-
-</div>
+[[File:img/0xvf9ssaf4v32.png|thumb|500px]]
 <span id="interactive-visualization"></span>
 === Interactive Visualization ===
 
@@ -73,11 +57,7 @@ MarkdownTools<code>Private</code>ExportAnimatedImage[-AnimatedImage-, {Generated
 
 This shows 8 different trials of continuously injected randomness at the center position:
 
-<div class="figure">
-
-[[File:img/19770r5iw7kyy.png|19770r5iw7kyy]]
-
-</div>
+[[File:img/19770r5iw7kyy.png|thumb|500px]]
 <span id="understanding-randomness-injection"></span>
 ==== Understanding Randomness Injection ====
 
@@ -105,11 +85,7 @@ MarkdownTools<code>Private</code>ExportAnimatedImage[-AnimatedImage-, {Generated
 
 This shows how different random initial densities (5% to 95%) affect the rule’s evolution:
 
-<div class="figure">
-
-[[File:img/0rrbun9j2056d.png|0rrbun9j2056d]]
-
-</div>
+[[File:img/0rrbun9j2056d.png|thumb|500px]]
 <span id="understanding-density-effects"></span>
 ==== Understanding Density Effects ====
 
@@ -132,11 +108,7 @@ Research Applications: Use this analysis to identify interesting density ranges 
 
 This shows 8 different completely random initial conditions (50% density) to reveal variability in outcomes:
 
-<div class="figure">
-
-[[File:img/0bmr0diit0zhh.png|0bmr0diit0zhh]]
-
-</div>
+[[File:img/0bmr0diit0zhh.png|thumb|500px]]
 <span id="understanding-random-variability"></span>
 ==== Understanding Random Variability ====
 
@@ -159,11 +131,7 @@ Statistical Analysis Opportunities: Use this set of evolutions to calculate stat
 
 This shows how tiny perturbations (flipping one bit) propagate through the system. Red areas show where the perturbed and original evolutions differ:
 
-<div class="figure">
-
-[[File:img/04bgsclebaeyb.png|04bgsclebaeyb]]
-
-</div>
+[[File:img/04bgsclebaeyb.png|thumb|500px]]
 <span id="understanding-damage-spreading"></span>
 ==== Understanding Damage Spreading ====
 
@@ -188,11 +156,7 @@ Research Opportunities: Use damage spreading patterns to classify rules, measure
 
 This shows the quantitative dynamics of damage spreading - how the number of differing cells changes over time:
 
-<div class="figure">
-
-[[File:img/1td63thjxzqsa.png|1td63thjxzqsa]]
-
-</div>
+[[File:img/1td63thjxzqsa.png|thumb|500px]]
 <span id="understanding-damage-dynamics"></span>
 ==== Understanding Damage Dynamics ====
 
@@ -217,11 +181,7 @@ Practical Implications: For applications requiring predictable behavior, rules w
 
 This measures the spatial extent (light cone) of damage spreading - how wide the perturbation influence spreads over time:
 
-<div class="figure">
-
-[[File:img/0h37kr5mb0ihh.png|0h37kr5mb0ihh]]
-
-</div>
+[[File:img/0h37kr5mb0ihh.png|thumb|500px]]
 <span id="understanding-spatial-propagation"></span>
 ==== Understanding Spatial Propagation ====
 
@@ -251,53 +211,29 @@ These analyses examine statistical properties averaged over many random initial 
 <span id="power-spectrum-analysis"></span>
 ==== Power Spectrum Analysis ====
 
-<div class="figure">
-
-[[File:img/04x6af7n9i602.png|04x6af7n9i602]]
-
-</div>
+[[File:img/04x6af7n9i602.png|thumb|500px]]
 <span id="ensemble-density-evolution"></span>
 ==== Ensemble Density Evolution ====
 
 # Enhanced Density Evolution Heatmap:
 
-<div class="figure">
-
-[[File:img/1ru54kcq62r4e.png|1ru54kcq62r4e]]
-
-</div>
+[[File:img/1ru54kcq62r4e.png|thumb|500px]]
 <ol start="2" style="list-style-type: decimal;">
 <li>Density Contour Plot:</li></ol>
 
-<div class="figure">
-
-[[File:img/13g0yqbfb70qr.png|13g0yqbfb70qr]]
-
-</div>
+[[File:img/13g0yqbfb70qr.png|thumb|500px]]
 <ol start="3" style="list-style-type: decimal;">
 <li>Individual Density Trajectories:</li></ol>
 
-<div class="figure">
-
-[[File:img/0c0yi7maqpita.png|0c0yi7maqpita]]
-
-</div>
+[[File:img/0c0yi7maqpita.png|thumb|500px]]
 <ol start="4" style="list-style-type: decimal;">
 <li>Statistical Summary:</li></ol>
 
-<div class="figure">
-
-[[File:img/12g4m9w95159a.png|12g4m9w95159a]]
-
-</div>
+[[File:img/12g4m9w95159a.png|thumb|500px]]
 <ol start="5" style="list-style-type: decimal;">
 <li>Final State Distribution:</li></ol>
 
-<div class="figure">
-
-[[File:img/1fiura9tkjmtk.png|1fiura9tkjmtk]]
-
-</div>
+[[File:img/1fiura9tkjmtk.png|thumb|500px]]
 <span id="understanding-ensemble-properties"></span>
 ==== Understanding Ensemble Properties ====
 
@@ -327,11 +263,7 @@ These analyses examine the rule’s behavior in small, finite systems, revealing
 <span id="state-transition-diagrams"></span>
 ==== State Transition Diagrams ====
 
-<div class="figure">
-
-[[File:img/1n3jixewizckd.png|1n3jixewizckd]]
-
-</div>
+[[File:img/1n3jixewizckd.png|thumb|500px]]
 <span id="understanding-state-transition-diagrams"></span>
 ==== Understanding State Transition Diagrams ====
 
@@ -362,11 +294,7 @@ Research Applications: Use state transition diagrams to classify rules by attrac
 <span id="maximum-cycle-length-analysis"></span>
 ==== Maximum Cycle Length Analysis ====
 
-<div class="figure">
-
-[[File:img/07pps4mp7pgxy.png|07pps4mp7pgxy]]
-
-</div>
+[[File:img/07pps4mp7pgxy.png|thumb|500px]]
 <span id="understanding-cycle-length-and-finite-size-properties"></span>
 ==== Understanding Cycle Length and Finite Size Properties ====
 
@@ -391,11 +319,7 @@ Practical Applications: For cryptography, rules with exponentially growing cycle
 
 This shows the tree of all possible predecessor configurations that can produce a given target pattern, revealing the rule’s preimage structure:
 
-<div class="figure">
-
-[[File:img/08zi3sjxjedkv.png|08zi3sjxjedkv]]
-
-</div>
+[[File:img/08zi3sjxjedkv.png|thumb|500px]]
 {| class="wikitable"
 |-
 | '''Predecessor counts for each configuration:'''
@@ -446,19 +370,11 @@ The CA rule as a continuous mapping on [0,1]. Each point represents a binary con
 <span id="cantor-set-mapping"></span>
 ==== Cantor Set Mapping ====
 
-<div class="figure">
-
-[[File:img/0x2mph6eibz69.png|0x2mph6eibz69]]
-
-</div>
+[[File:img/0x2mph6eibz69.png|thumb|500px]]
 <span id="high-resolution-view"></span>
 ==== High Resolution View ====
 
-<div class="figure">
-
-[[File:img/12iuel8u0qufb.png|12iuel8u0qufb]]
-
-</div>
+[[File:img/12iuel8u0qufb.png|thumb|500px]]
 <span id="understanding-the-cantor-set-representation"></span>
 ==== Understanding the Cantor Set Representation ====
 

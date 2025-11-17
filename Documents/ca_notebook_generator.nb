@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       154,          7]
-NotebookDataLength[    170487,       3387]
-NotebookOptionsPosition[    169813,       3367]
-NotebookOutlinePosition[    170296,       3385]
-CellTagsIndexPosition[    170253,       3382]
+NotebookDataLength[    170517,       3386]
+NotebookOptionsPosition[    169839,       3366]
+NotebookOutlinePosition[    170321,       3384]
+CellTagsIndexPosition[    170278,       3381]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -152,10 +152,10 @@ Rule \>\"", "<>",
                  
                  RowBox[{"\"\<Check your notebooks list for the new notebook.\
 \>\"", ",", "\"\<Text\>\""}], "]"}]}], "}"}], "]"}]}], ")"}], 
-           ",", "\"\<\>\""}], "]"}], "]"}]}], "}"}], "]"}]}], "]"}], "\n", 
-   "\[IndentingNewLine]", 
+           ",", "\"\<\>\""}], "]"}], "]"}]}], "}"}], "]"}]}], "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{"(*", 
-    RowBox[{"Instructions", " ", "Panel"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"Instructions", " ", "Panel"}], "*)"}], "\n", 
    RowBox[{"Panel", "[", 
     RowBox[{
      RowBox[{"Column", "[", 
@@ -178,12 +178,12 @@ specific to that rule\>\"", ",", "\"\<Text\>\""}], "]"}], ",",
 explore the rule\>\"", ",", "\"\<Text\>\""}], "]"}]}], "}"}], "]"}], ",", 
      RowBox[{"Background", "->", "LightYellow"}], ",", 
      RowBox[{"FrameMargins", "->", "15"}]}], "]"}], "\[IndentingNewLine]", 
-   "\[IndentingNewLine]", 
+   "\n", 
    RowBox[{"(*", 
     RowBox[{
      RowBox[{"Helper", " ", "Functions"}], "-", 
      RowBox[{"These", " ", "run", " ", "in", " ", "background"}]}], "*)"}], 
-   "\n", "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{"(*", 
     RowBox[{"Rule", " ", "analysis", " ", "function"}], "*)"}], "\[IndentingNewLine]", 
    RowBox[{
@@ -250,9 +250,9 @@ explore the rule\>\"", ",", "\"\<Text\>\""}], "]"}]}], "}"}], "]"}], ",",
          RowBox[{
           RowBox[{"\"\<class\>\"", "->", "class"}], ",", 
           RowBox[{"\"\<behavior\>\"", "->", "behavior"}]}], "|>"}]}]}], 
-      "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+      "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
    RowBox[{"(*", 
-    RowBox[{"Notebook", " ", "Generation", " ", "Function"}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{"Notebook", " ", "Generation", " ", "Function"}], "*)"}], "\n", 
    RowBox[{
     RowBox[{
      RowBox[{"generateCANotebook", "[", "ruleNumber_Integer", "]"}], ":=", 
@@ -3236,8 +3236,7 @@ properties like mixing and minimality.\>\""}], "}"}], "]"}],
    3.9681806960152597`*^9, 3.968180697025144*^9}, {3.968180763452681*^9, 
    3.9681808122605762`*^9}, {3.9681808917133083`*^9, 3.9681809021298532`*^9}},
  
- CellLabel->
-  "In[540]:=",ExpressionUUID->"d608460e-a223-41b5-bdda-c0f638edbc99"],
+ CellLabel->"In[1]:=",ExpressionUUID->"d608460e-a223-41b5-bdda-c0f638edbc99"],
 
 Cell[BoxData[
  DynamicModuleBox[{$CellContext`selectedRule$$ = 
@@ -3283,7 +3282,7 @@ Cell[BoxData[
             ImageSize -> 400]}], 
          Style["Please enter a valid rule number (0-255)", "Text", Red]], 
         StandardForm],
-       ImageSizeCache->{400., {237.39683320312503`, 243.12876679687503`}}]},
+       ImageSizeCache->{400., {240.764784375, 246.389784375}}]},
      {
       TemplateBox[{10},
        "Spacer1"]},
@@ -3300,7 +3299,7 @@ $CellContext`generateNotebook$$ = False; Column[{
             Style[
             "Check your notebooks list for the new notebook.", "Text"]}], ""],
          StandardForm],
-       ImageSizeCache->{0., {0., 6.318}}]}
+       ImageSizeCache->{0., {0., 6.19921875}}]}
     },
     DefaultBaseStyle->"Column",
     GridBoxAlignment->{"Columns" -> {{Left}}},
@@ -3317,9 +3316,9 @@ $CellContext`generateNotebook$$ = False; Column[{
   3.968143504552058*^9, 3.968144262683766*^9, 3.968146016141138*^9, 
   3.968149106465913*^9, 3.9681514562785*^9, 3.96815170295402*^9, 
   3.968152048137858*^9, 3.9681804977196617`*^9, 3.9681807006412277`*^9, 
-  3.9681808153727627`*^9, 3.968180909253274*^9, 3.968181104438751*^9},
- CellLabel->
-  "Out[540]=",ExpressionUUID->"8ae03f72-4956-49b6-b432-976f9eeabcd1"],
+  3.9681808153727627`*^9, 3.968180909253274*^9, 3.968181104438751*^9, 
+  3.972407462946204*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"af76f2ad-e5ad-44a7-95dd-c2dbf136bee8"],
 
 Cell[BoxData[
  PanelBox[
@@ -3360,16 +3359,16 @@ the rule\"\>", "Text",
   3.968143504552058*^9, 3.968144262683766*^9, 3.968146016141138*^9, 
   3.968149106465913*^9, 3.9681514562785*^9, 3.96815170295402*^9, 
   3.968152048137858*^9, 3.9681804977196617`*^9, 3.9681807006412277`*^9, 
-  3.9681808153727627`*^9, 3.968180909253274*^9, 3.9681811044577208`*^9},
- CellLabel->
-  "Out[541]=",ExpressionUUID->"6e8f3123-4913-4382-b2a5-2429709c4011"]
+  3.9681808153727627`*^9, 3.968180909253274*^9, 3.968181104438751*^9, 
+  3.972407463018023*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"21d2973b-7bf5-4e2e-a28d-123de33c7726"]
 }, Open  ]]
 },
-WindowSize->{1424, 758},
-WindowMargins->{{8, Automatic}, {Automatic, 8}},
+WindowSize->{700.5, 1026},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"CloudPublishPath"->"/Published/oneD CA Rule \
 Template v1.3.nb"},
-FrontEndVersion->"14.3 for Mac OS X x86 (64-bit) (July 8, 2025)",
+FrontEndVersion->"14.3 for Linux x86 (64-bit) (July 8, 2025)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"c2c9a6b9-fd80-439f-9ec7-9b8de2ea1828"
 ]
@@ -3385,12 +3384,11 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[576, 22, 163953, 3217, 70, "Input",ExpressionUUID->"d608460e-a223-41b5-bdda-c0f638edbc99"],
-Cell[164532, 3241, 3481, 80, 70, "Output",ExpressionUUID->"8ae03f72-4956-49b6-b432-976f9eeabcd1"],
-Cell[168016, 3323, 1781, 41, 70, "Output",ExpressionUUID->"6e8f3123-4913-4382-b2a5-2429709c4011"]
+Cell[576, 22, 163948, 3216, 28395, "Input",ExpressionUUID->"d608460e-a223-41b5-bdda-c0f638edbc99"],
+Cell[164527, 3240, 3494, 80, 704, "Output",ExpressionUUID->"af76f2ad-e5ad-44a7-95dd-c2dbf136bee8"],
+Cell[168024, 3322, 1799, 41, 155, "Output",ExpressionUUID->"21d2973b-7bf5-4e2e-a28d-123de33c7726"]
 }, Open  ]]
 }
 ]
 *)
 
-(* End of internal cache information *)
