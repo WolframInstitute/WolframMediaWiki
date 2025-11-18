@@ -366,7 +366,7 @@ saveMediaWikiAsset[data_, outputDirectory_, extension_, exportFunction_] :=
 		If[!FileExistsQ[imagePath],
 			Quiet[exportFunction[imagePath]]
 		];
-		"[[File:" <> imageFileName <> "|thumb|img/" <> imageFileName <> "]]"
+		"[[File:" <> imageFileName <> "|thumb|none|500px" <> "]]"
 	];
 
 ensureDirectoryExists[directory_String] :=

@@ -10,11 +10,11 @@ Behavior: Chaotic, good random number generator
 
 Binary Rule Table:
 
-[[File:nb-1tdgck2pvdj5z.png|thumb|img/nb-1tdgck2pvdj5z.png]]
+[[File:nb-1tdgck2pvdj5z.png|thumb|none|500px]]
 
 Visual Rule Plot:
 
-[[File:nb-1khcz9aluy6ac.png|thumb|img/nb-1khcz9aluy6ac.png]]
+[[File:nb-1khcz9aluy6ac.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -22,15 +22,15 @@ Visual Rule Plot:
 
 Canonical ArrayPlot:
 
-[[File:nb-0riyiwjk34nk1.png|thumb|img/nb-0riyiwjk34nk1.png]]
+[[File:nb-0riyiwjk34nk1.png|thumb|none|500px]]
 
 Random Initial Conditions ArrayPlot:
 
-[[File:nb-1ln8qo6u140ub.png|thumb|img/nb-1ln8qo6u140ub.png]]
+[[File:nb-1ln8qo6u140ub.png|thumb|none|500px]]
 
 Alternate Step ArrayPlot:
 
-[[File:nb-0c9h7u3akswvo.png|thumb|img/nb-0c9h7u3akswvo.png]]
+[[File:nb-0c9h7u3akswvo.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -38,7 +38,7 @@ Alternate Step ArrayPlot:
 
 === Interactive Visualization ===
 
-[[File:nb-17eddu8zr7uwf.png|thumb|img/nb-17eddu8zr7uwf.png]]
+[[File:nb-17eddu8zr7uwf.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -46,7 +46,7 @@ Alternate Step ArrayPlot:
 
 This shows 8 different trials of continuously injected randomness at the center position:
 
-[[File:nb-13ak18p4c0r5p.png|thumb|img/nb-13ak18p4c0r5p.png]]
+[[File:nb-13ak18p4c0r5p.png|thumb|none|500px]]
 
 ==== Understanding Randomness Injection ====
 
@@ -70,7 +70,7 @@ Experimental Suggestions: Try comparing the same rule with and without randomnes
 
 === Density Evolution ===
 
-[[File:nb-14yhtky43h758.png|thumb|img/nb-14yhtky43h758.png]]
+[[File:nb-14yhtky43h758.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -78,7 +78,7 @@ Experimental Suggestions: Try comparing the same rule with and without randomnes
 
 This shows how different random initial densities (5% to 95%) affect the rule's evolution:
 
-[[File:nb-0yoltszouo2sj.png|thumb|img/nb-0yoltszouo2sj.png]]
+[[File:nb-0yoltszouo2sj.png|thumb|none|500px]]
 
 ==== Understanding Density Effects ====
 
@@ -104,7 +104,7 @@ Research Applications: Use this analysis to identify interesting density ranges 
 
 This shows 8 different completely random initial conditions (50% density) to reveal variability in outcomes:
 
-[[File:nb-0fitrx6r4dra7.png|thumb|img/nb-0fitrx6r4dra7.png]]
+[[File:nb-0fitrx6r4dra7.png|thumb|none|500px]]
 
 ==== Understanding Random Variability ====
 
@@ -130,7 +130,7 @@ Statistical Analysis Opportunities: Use this set of evolutions to calculate stat
 
 This shows how tiny perturbations (flipping one bit) propagate through the system. Red areas show where the perturbed and original evolutions differ:
 
-[[File:nb-0durgt8omchk4.png|thumb|img/nb-0durgt8omchk4.png]]
+[[File:nb-0durgt8omchk4.png|thumb|none|500px]]
 
 ==== Understanding Damage Spreading ====
 
@@ -158,7 +158,7 @@ Research Opportunities: Use damage spreading patterns to classify rules, measure
 
 This shows the quantitative dynamics of damage spreading - how the number of differing cells changes over time:
 
-[[File:nb-0ziw2kinh45cf.png|thumb|img/nb-0ziw2kinh45cf.png]]
+[[File:nb-0ziw2kinh45cf.png|thumb|none|500px]]
 
 ==== Understanding Damage Dynamics ====
 
@@ -186,7 +186,7 @@ Practical Implications: For applications requiring predictable behavior, rules w
 
 This measures the spatial extent (light cone) of damage spreading - how wide the perturbation influence spreads over time:
 
-[[File:nb-1h6b9rwbnvfeg.png|thumb|img/nb-1h6b9rwbnvfeg.png]]
+[[File:nb-1h6b9rwbnvfeg.png|thumb|none|500px]]
 
 ==== Understanding Spatial Propagation ====
 
@@ -218,7 +218,7 @@ These analyses examine statistical properties averaged over many random initial 
 
 ==== Power Spectrum Analysis ====
 
-[[File:nb-08adkesvivofk.png|thumb|img/nb-08adkesvivofk.png]]
+[[File:nb-08adkesvivofk.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -226,23 +226,23 @@ These analyses examine statistical properties averaged over many random initial 
 
 1. Enhanced Density Evolution Heatmap:
 
-[[File:nb-1m81codpqxt2u.png|thumb|img/nb-1m81codpqxt2u.png]]
+[[File:nb-1m81codpqxt2u.png|thumb|none|500px]]
 
 2. Density Contour Plot:
 
-[[File:nb-1ai0nbdy8qj7r.png|thumb|img/nb-1ai0nbdy8qj7r.png]]
+[[File:nb-1ai0nbdy8qj7r.png|thumb|none|500px]]
 
 3. Individual Density Trajectories:
 
-[[File:nb-1mx1gymcg3npb.png|thumb|img/nb-1mx1gymcg3npb.png]]
+[[File:nb-1mx1gymcg3npb.png|thumb|none|500px]]
 
 4. Statistical Summary:
 
-[[File:nb-0e29sdvzf60z6.png|thumb|img/nb-0e29sdvzf60z6.png]]
+[[File:nb-0e29sdvzf60z6.png|thumb|none|500px]]
 
 5. Final State Distribution:
 
-[[File:nb-05h8mckmbo1yb.png|thumb|img/nb-05h8mckmbo1yb.png]]
+[[File:nb-05h8mckmbo1yb.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -276,7 +276,7 @@ These analyses examine the rule's behavior in small, finite systems, revealing a
 
 ==== State Transition Diagrams ====
 
-[[File:nb-0ime33tbv9yyk.png|thumb|img/nb-0ime33tbv9yyk.png]]
+[[File:nb-0ime33tbv9yyk.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -310,7 +310,7 @@ Research Applications: Use state transition diagrams to classify rules by attrac
 
 ==== Maximum Cycle Length Analysis ====
 
-[[File:nb-112vziins32fs.png|thumb|img/nb-112vziins32fs.png]]
+[[File:nb-112vziins32fs.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -338,9 +338,9 @@ Practical Applications: For cryptography, rules with exponentially growing cycle
 
 This shows the tree of all possible predecessor configurations that can produce a given target pattern, revealing the rule's preimage structure:
 
-[[File:nb-0arj4jfal7gqq.png|thumb|img/nb-0arj4jfal7gqq.png]]
+[[File:nb-0arj4jfal7gqq.png|thumb|none|500px]]
 
-[[File:nb-0sckwx13dw072.png|thumb|img/nb-0sckwx13dw072.png]]
+[[File:nb-0sckwx13dw072.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
@@ -384,13 +384,13 @@ The CA rule as a continuous mapping on [0,1]. Each point represents a binary con
 
 ==== Cantor Set Mapping ====
 
-[[File:nb-0uge3ls882wni.png|thumb|img/nb-0uge3ls882wni.png]]
+[[File:nb-0uge3ls882wni.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
 ==== High Resolution View ====
 
-[[File:nb-1x337oyxa2muh.png|thumb|img/nb-1x337oyxa2muh.png]]
+[[File:nb-1x337oyxa2muh.png|thumb|none|500px]]
 
 <!-- Unknown style: Text -->
 
