@@ -175,10 +175,10 @@ isHeaderStyle[style_String] := KeyExistsQ[$headerLevels, style];
 $headerLevels = <|
 	"Title" -> 1,
 	"Chapter" -> 2,
-	"Section" -> 3,
-	"Subsection" -> 4,
-	"Subsubsection" -> 5,
-	"Subsubsubsection" -> 6
+	"Section" -> 2,
+	"Subsection" -> 3,
+	"Subsubsection" -> 4,
+	"Subsubsubsection" -> 5
 |>;
 
 formatAsMediaWikiHeader[headerStyle_String, headerText_String] :=

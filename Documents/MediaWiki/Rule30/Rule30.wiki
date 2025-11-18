@@ -1,12 +1,12 @@
 = Cellular Automaton Rule 30 Analysis =
 
-=== Rule Information ===
+== Rule Information ==
 
 Rule Number: 30
 Rule Class: III (Chaotic)
 Behavior: Chaotic, good random number generator
 
-==== Rule Pattern ====
+=== Rule Pattern ===
 
 Binary Rule Table:
 
@@ -16,7 +16,7 @@ Visual Rule Plot:
 
 [[File:nb-1khcz9aluy6ac.png|thumb|none|500px]]
 
-==== Rule ArrayPlot ====
+=== Rule ArrayPlot ===
 
 Canonical ArrayPlot:
 
@@ -30,17 +30,17 @@ Alternate Step ArrayPlot:
 
 [[File:nb-0c9h7u3akswvo.png|thumb|none|500px]]
 
-=== Interactive Visualization ===
+== Interactive Visualization ==
 
 [[File:nb-17eddu8zr7uwf.png|thumb|none|500px]]
 
-=== Continuously Injected Randomness Analysis ===
+== Continuously Injected Randomness Analysis ==
 
 This shows 8 different trials of continuously injected randomness at the center position:
 
 [[File:nb-13ak18p4c0r5p.png|thumb|none|500px]]
 
-==== Understanding Randomness Injection ====
+=== Understanding Randomness Injection ===
 
 The 'Inject Randomness' feature transforms the cellular automaton from a deterministic system into a stochastic one by continuously adding random perturbations at the center position. This modification enables the study of several important phenomena:
 
@@ -56,17 +56,17 @@ Real-World Applications: This feature models systems like biological evolution w
 
 Experimental Suggestions: Try comparing the same rule with and without randomness injection. Use different random seeds to see if patterns are consistent. Vary the initial conditions to see how randomness interacts with different starting configurations.
 
-=== Density Evolution ===
+== Density Evolution ==
 
 [[File:nb-14yhtky43h758.png|thumb|none|500px]]
 
-=== Density Sensitivity Analysis ===
+== Density Sensitivity Analysis ==
 
 This shows how different random initial densities (5% to 95%) affect the rule's evolution:
 
 [[File:nb-0yoltszouo2sj.png|thumb|none|500px]]
 
-==== Understanding Density Effects ====
+=== Understanding Density Effects ===
 
 The density sensitivity analysis reveals how initial population density affects the rule's long-term behavior and pattern formation. This systematic comparison across different densities provides insights into several important aspects:
 
@@ -82,13 +82,13 @@ Percolation and Connectivity: The density analysis helps identify percolation th
 
 Research Applications: Use this analysis to identify interesting density ranges for further study, understand the rule's robustness to initial conditions, compare different rules' sensitivity to density, and validate theoretical predictions about critical phenomena in cellular automata.
 
-=== Random Initial Condition Variability ===
+== Random Initial Condition Variability ==
 
 This shows 8 different completely random initial conditions (50% density) to reveal variability in outcomes:
 
 [[File:nb-0fitrx6r4dra7.png|thumb|none|500px]]
 
-==== Understanding Random Variability ====
+=== Understanding Random Variability ===
 
 The random initial condition variability analysis shows how the same rule behaves with different random starting configurations, all at approximately 50% density. This reveals the intrinsic variability and predictability of the rule's dynamics:
 
@@ -104,13 +104,13 @@ Practical Modeling Implications: In real-world applications, initial conditions 
 
 Statistical Analysis Opportunities: Use this set of evolutions to calculate statistical measures like final density distributions, pattern correlation lengths, or emergence times for specific structures. This provides quantitative characterization of the rule's behavior under random initial conditions.
 
-=== Damage Spreading Analysis ===
+== Damage Spreading Analysis ==
 
 This shows how tiny perturbations (flipping one bit) propagate through the system. Red areas show where the perturbed and original evolutions differ:
 
 [[File:nb-0durgt8omchk4.png|thumb|none|500px]]
 
-==== Understanding Damage Spreading ====
+=== Understanding Damage Spreading ===
 
 Damage spreading analysis reveals how cellular automaton rules respond to tiny perturbations - one of the most fundamental characteristics for understanding system stability and information propagation. This analysis starts with pairs of nearly identical initial conditions (differing by just one flipped bit) and tracks how this microscopic difference evolves:
 
@@ -128,13 +128,13 @@ Real-World Applications: This analysis is essential for modeling biological evol
 
 Research Opportunities: Use damage spreading patterns to classify rules, measure information propagation speeds, identify critical parameters, study phase transitions, and validate theoretical predictions about complex system behavior.
 
-=== Damage Spreading Dynamics ===
+== Damage Spreading Dynamics ==
 
 This shows the quantitative dynamics of damage spreading - how the number of differing cells changes over time:
 
 [[File:nb-0ziw2kinh45cf.png|thumb|none|500px]]
 
-==== Understanding Damage Dynamics ====
+=== Understanding Damage Dynamics ===
 
 The damage spreading dynamics plots provide quantitative time series data showing exactly how perturbations evolve numerically. Each graph tracks the number of cells that differ between the original and perturbed evolutions at every time step, revealing the mathematical structure underlying the visual patterns:
 
@@ -152,13 +152,13 @@ Information Theory Applications: The number of differing cells provides a direct
 
 Practical Implications: For applications requiring predictable behavior, rules with rapidly decaying damage are preferred. For applications requiring sensitivity (like random number generation or mixing), rules with growing or sustained damage are valuable. For complex computation, rules showing intermediate damage dynamics often provide the best balance.
 
-=== Damage Spreading Width Analysis ===
+== Damage Spreading Width Analysis ==
 
 This measures the spatial extent (light cone) of damage spreading - how wide the perturbation influence spreads over time:
 
 [[File:nb-1h6b9rwbnvfeg.png|thumb|none|500px]]
 
-==== Understanding Spatial Propagation ====
+=== Understanding Spatial Propagation ===
 
 The damage spreading width analysis measures the spatial extent of perturbation influence over time, revealing fundamental properties of information propagation and the cellular automaton's 'light cone' structure. This analysis tracks how far the effects of a single bit flip spread spatially as the system evolves:
 
@@ -178,15 +178,15 @@ Pattern Formation Insights: The width dynamics reveal how local perturbations ev
 
 Critical Behavior: Near critical points, width spreading often shows scale-invariant or power-law behavior. This can identify rules at phase transition boundaries where small parameter changes lead to qualitatively different spatial propagation properties.
 
-=== Ensemble Properties ===
+== Ensemble Properties ==
 
 These analyses examine statistical properties averaged over many random initial conditions, revealing the rule's fundamental characteristics beyond individual evolutions:
 
-==== Power Spectrum Analysis ====
+=== Power Spectrum Analysis ===
 
 [[File:nb-08adkesvivofk.png|thumb|none|500px]]
 
-==== Ensemble Density Evolution ====
+=== Ensemble Density Evolution ===
 
 1. Enhanced Density Evolution Heatmap:
 
@@ -208,7 +208,7 @@ These analyses examine statistical properties averaged over many random initial 
 
 [[File:nb-05h8mckmbo1yb.png|thumb|none|500px]]
 
-==== Understanding Ensemble Properties ====
+=== Understanding Ensemble Properties ===
 
 Ensemble properties reveal the rule's fundamental statistical behavior by averaging over many random initial conditions, providing insights that single evolutions cannot capture. These analyses are essential for understanding the cellular automaton's intrinsic characteristics:
 
@@ -228,15 +228,15 @@ Basin Structure: The final density plot reveals basin structure - regions of ini
 
 Research Applications: Use density evolution analysis to classify rules by their population dynamics, identify critical densities and phase transitions, predict long-term behavior from initial conditions, compare different rules quantitatively, and validate theoretical predictions about cellular automaton attractors and conservation laws.
 
-=== Finite Size Properties ===
+== Finite Size Properties ==
 
 These analyses examine the rule's behavior in small, finite systems, revealing attractor structure and repetition periods. State Transition Diagrams are directed graphs, where each node represents a possible binary configuration of the grid (with periodic boundaries). An arrow connects one state to its successor, given the automaton's rule. Loops and cycles correspond to repeating patterns—attractors in the finite CA. How Would You Construct One by Hand? Choose a grid width (e.g., 3 cells). List all possible states. For 3 cells: 000, 001, 010, 011, 100, 101, 110, 111. For each state: Apply the CA rule (with periodic boundaries) to generate the next state. Cells update according to the values of themselves and their left/right neighbors (use the rule's lookup table). Draw an arrow from the current state to its next state. Repeat until every state is mapped. Visualize the graph: Arrange nodes so cycles (loops) and branches are clear.
 
-==== State Transition Diagrams ====
+=== State Transition Diagrams ===
 
 [[File:nb-0ime33tbv9yyk.png|thumb|none|500px]]
 
-==== Understanding State Transition Diagrams ====
+=== Understanding State Transition Diagrams ===
 
 State transition diagrams provide a complete map of the cellular automaton's behavior in finite systems, showing every possible configuration and how it evolves. Each node represents a unique binary configuration of the grid (with periodic boundaries), and directed edges show which state follows which under one application of the rule.
 
@@ -262,11 +262,11 @@ Information Flow: The direction of arrows shows information flow through state s
 
 Research Applications: Use state transition diagrams to classify rules by attractor topology, identify reversible rules visually, count Garden of Eden states, measure basin sizes for different attractors, validate theoretical predictions about finite CA behavior, and understand the complete finite-state dynamics that infinite systems approximate.
 
-==== Maximum Cycle Length Analysis ====
+=== Maximum Cycle Length Analysis ===
 
 [[File:nb-112vziins32fs.png|thumb|none|500px]]
 
-==== Understanding Cycle Length and Finite Size Properties ====
+=== Understanding Cycle Length and Finite Size Properties ===
 
 Finite size analysis reveals the rule's fundamental mathematical structure by examining complete state spaces in small systems. Since every finite CA must eventually return to a previously visited state, all trajectories lead to attractors - either fixed points (cycle length 1) or periodic cycles. The maximum cycle length provides a measure of the rule's dynamical complexity and computational depth in finite systems.
 
@@ -284,7 +284,7 @@ Information Theory: Long cycle lengths correspond to high entropy production. Th
 
 Practical Applications: For cryptography, rules with exponentially growing cycles are desirable. For modeling periodic phenomena, rules with predictable small cycles are useful. For random number generation, rules with maximal cycles provide good pseudo-randomness with known periodicity.
 
-==== Backtracking Trees ====
+=== Backtracking Trees ===
 
 This shows the tree of all possible predecessor configurations that can produce a given target pattern, revealing the rule's preimage structure:
 
@@ -292,7 +292,7 @@ This shows the tree of all possible predecessor configurations that can produce 
 
 [[File:nb-0sckwx13dw072.png|thumb|none|500px]]
 
-==== Understanding Backtracking Trees ====
+=== Understanding Backtracking Trees ===
 
 Backtracking trees reveal the inverse dynamics of cellular automata by showing all possible configurations that could have produced a given target pattern. Unlike forward evolution which is deterministic (one input produces one output), backward evolution is typically non-deterministic - multiple different predecessors can produce the same successor configuration.
 
@@ -322,19 +322,19 @@ Comparison Across Rules: Different rule classes show characteristic tree structu
 
 Research Applications: Use backtracking trees to classify rules by preimage structure, identify Garden of Eden states, measure surjectivity, detect reversibility, quantify information loss in forward evolution, understand pattern formation constraints, and study the inverse problem of cellular automaton dynamics.
 
-=== State Space as Cantor Set ===
+== State Space as Cantor Set ==
 
 The CA rule as a continuous mapping on [0,1]. Each point represents a binary configuration normalized to the unit interval:
 
-==== Cantor Set Mapping ====
+=== Cantor Set Mapping ===
 
 [[File:nb-0uge3ls882wni.png|thumb|none|500px]]
 
-==== High Resolution View ====
+=== High Resolution View ===
 
 [[File:nb-1x337oyxa2muh.png|thumb|none|500px]]
 
-==== Understanding the Cantor Set Representation ====
+=== Understanding the Cantor Set Representation ===
 
 The Cantor set visualization reveals one of the most profound connections between cellular automata and pure mathematics, showing how discrete, local rules generate continuous dynamical systems with rich topological structure. This representation transforms our understanding of CAs from computational objects to mathematical functions with deep geometric properties:
 
