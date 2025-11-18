@@ -431,9 +431,12 @@ extractAllCells[nb_NotebookObject] :=
 	];
 
 extractAllCells[Notebook[cells_List, ___]] :=
-	Cases[cells, _Cell, Infinity];
+	Cases[flattenCellGroups[cells], _Cell, Infinity];
 
 extractAllCells[_] := {};
+
+flattenCellGroups[cells_List] :=
+	cells //. Cell[CellGroupData[innerCells_List, ___], ___] :> Sequence @@ innerCells;
 
 (* Cleanup functions *)
 cleanupSpecialCharacters[text_String] :=
